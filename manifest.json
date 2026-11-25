@@ -1,0 +1,18 @@
+{
+"name": "Something Fishy — Daily Anomaly Briefing",
+"short_name": "Something Fishy",
+"description": "Daily global coincidences, plain-English news hooks, and verified public records vs. alternative hypotheses.",
+"start_url": "./index.html",
+"display": "standalone",
+"background_color": "#080a0f",
+"theme_color": "#080a0f",
+"orientation": "portrait",
+"icons": [
+{
+"src": "https://placehold.co/512x512/080a0f/f59e0b.png?text=SF",
+"sizes": "512x512",
+"type": "image/png",
+"purpose": "any maskable"
+}
+]
+}
