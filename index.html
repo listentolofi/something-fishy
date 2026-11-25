@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080a0f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="Global OSINT, Coincidence Monitor & Verified Public Record Briefing" />
+  <link rel="manifest" href="manifest.json" />
+  <title>SOMETHING FISHY // Global Anomaly & Coincidence Monitor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            obsidian: '#080a0f',
+            dossier: '#0f131c',
+            dossierHover: '#151b28',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes tickerScroll {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-track {
+      display: inline-flex;
+      white-space: nowrap;
+      animation: tickerScroll 125s linear infinite;
+    }
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-obsidian text-slate-200 font-sans min-h-screen flex flex-col selection:bg-amber-500/30 selection:text-amber-200">
+
+  <!-- TOP SCROLLING GLOBAL WIRE TICKER -->
+  <div class="bg-dossier border-b border-slate-800/90 py-2 overflow-hidden font-mono text-[11px] text-slate-300">
+    <div id="tickerContent" class="ticker-track">
+      <!-- Populated via JS -->
+    </div>
+  </div>
+
+  <!-- MAIN HEADER & COINCIDENCE GAUGE -->
+  <header class="border-b border-slate-800/80 bg-dossier/70 backdrop-blur-md sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <!-- Brand Identity -->
+        <div>
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+            <span id="feedStatusBadge" class="font-mono text-[11px] tracking-widest text-amber-400 uppercase font-bold">GLOBAL OSINT & ANOMALY MONITOR // AUTO-FEED ACTIVE</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mt-0.5 flex items-center gap-2">
+            SOMETHING FISHY
+            <span class="font-mono text-xs font-medium px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">DAILY EDITION</span>
+          </h1>
+        </div>
+
+        <!-- Global Coincidence Gauge & Primary Controls -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+          <!-- Coincidence Convergence Gauge -->
+          <div class="bg-obsidian border border-slate-800 rounded-xl px-4 py-3 min-w-[260px]">
+            <div class="flex items-center justify-between font-mono text-xs mb-1.5">
+              <span class="text-slate-400">COINCIDENCE LEVEL</span>
+              <span id="convergenceScoreText" class="text-amber-400 font-bold">88% // PRETTY FISHY</span>
+            </div>
+            <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+              <div id="convergenceBar" class="h-full rounded-full bg-gradient-to-r from-emerald-500 via-amber-400 to-rose-500 transition-all duration-700" style="width: 88%"></div>
+            </div>
+            <div class="flex justify-between font-mono text-[10px] text-slate-500 mt-1.5">
+              <span>SLIGHTLY FISHY</span>
+              <span>PRETTY FISHY</span>
+              <span>REALLY FISHY</span>
+            </div>
+          </div>
+
+          <!-- Primary Action Buttons -->
+          <div class="flex flex-wrap sm:flex-nowrap gap-2.5">
+            <button id="scanWireBtn" onclick="scanLiveWire()" class="flex-1 sm:flex-initial font-mono text-xs font-bold px-4 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black transition flex items-center justify-center gap-2 shadow-lg shadow-amber-500/10 cursor-pointer">
+              <svg id="scanIcon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span>REFRESH LIVE WIRE</span>
+            </button>
+
+            <button onclick="openFieldLogModal()" class="flex-1 sm:flex-initial font-mono text-xs font-bold px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center justify-center gap-2 cursor-pointer">
+              <span>+ LOG SIGHTING / LEAD</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs & Global Lens Switch -->
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mt-4 pt-3 border-t border-slate-800/80">
+        <!-- View Switcher -->
+        <div class="flex items-center gap-2 font-mono text-xs">
+          <button id="tabFeed" onclick="switchView('feed')" class="px-4 py-2 rounded-xl bg-amber-500 text-black font-bold transition cursor-pointer">
+            INTELLIGENCE FEED (<span id="dossierCount">15</span>)
+          </button>
+          <button id="tabBoard" onclick="switchView('board')" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white transition flex items-center gap-2 cursor-pointer">
+            <span>CORRELATION BOARD</span>
+            <span id="pinBadge" class="px-2 py-0.5 rounded-full bg-rose-600 text-white text-[10px] font-bold">3</span>
+          </button>
+        </div>
+
+        <!-- Master Lens Control -->
+        <div class="flex flex-wrap items-center gap-2.5 font-mono text-xs">
+          <div class="flex items-center bg-obsidian border border-slate-800 rounded-xl p-1">
+            <span class="text-slate-500 px-2 text-[10px]">MASTER LENS:</span>
+            <button id="masterPublicBtn" onclick="setAllLenses('public')" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold transition cursor-pointer">
+              PUBLIC RECORD
+            </button>
+            <button id="masterAltBtn" onclick="setAllLenses('alt')" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-rose-400 transition cursor-pointer">
+              ALT HYPOTHESIS
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- STATUS BANNER -->
+  <div id="statusBanner" class="hidden bg-amber-500/10 border-b border-amber-500/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex items-center justify-between font-mono text-xs text-amber-300">
+      <span id="statusMessage">// SYSTEM READY</span>
+      <button onclick="hideStatus()" class="text-amber-400 hover:text-white cursor-pointer">✕</button>
+    </div>
+  </div>
+
+  <!-- FILTER BAR (REGIONS, SUBJECTS & SEARCH) -->
+  <section id="filterSection" class="bg-dossier/40 border-b border-slate-800/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 space-y-3">
+      <!-- Top Row: Region Filter + Search -->
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 lg:pb-0">
+          <span class="font-mono text-[10px] text-slate-500 shrink-0">REGION:</span>
+          <div id="regionPills" class="flex items-center gap-1.5">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <div class="relative w-full lg:w-80">
+          <input type="text" id="searchInput" oninput="renderDossiers()" placeholder="Search citations, DOIs, sectors, keywords..."
+            class="w-full bg-obsidian border border-slate-800 rounded-xl pl-3.5 pr-9 py-2 text-xs text-slate-200 placeholder-slate-500 focus:border-amber-500 focus:outline-none" />
+          <svg class="w-4 h-4 text-slate-500 absolute right-3 top-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Bottom Row: Subject Pills -->
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+        <span class="font-mono text-[10px] text-slate-500 shrink-0">CATEGORY:</span>
+        <div id="subjectPills" class="flex items-center gap-1.5">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
+    <!-- FEED VIEW -->
+    <div id="feedView">
+      <div id="dossierGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+        <!-- Dossier Cards Populated via JS -->
+      </div>
+
+      <div id="emptyState" class="hidden bg-dossier border border-slate-800 rounded-2xl p-12 text-center">
+        <p class="font-mono text-sm text-amber-400 font-bold mb-1">NO MATCHING INTELLIGENCE RECORDS</p>
+        <p class="text-xs text-slate-400">Adjust your regional filter, domain classification, or search query.</p>
+      </div>
+    </div>
+
+    <!-- CORRELATION BOARD VIEW -->
+    <div id="boardView" class="hidden space-y-6">
+      <div class="bg-dossier border border-slate-800 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <span class="font-mono text-[10px] text-rose-400 uppercase tracking-widest">// CROSS-DOMAIN PATTERN SYNTHESIS //</span>
+          <h2 class="text-lg sm:text-xl font-bold text-white mt-0.5">Pinned Correlation Nodes</h2>
+          <p class="text-xs text-slate-400 mt-1">Pin 2 to 4 dossiers from different sectors or regions to cross-examine shared anomalies.</p>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <button onclick="clearPins()" class="font-mono text-xs px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition cursor-pointer">
+            CLEAR BOARD
+          </button>
+          <button onclick="analyzeCrossRegionalPattern()" class="font-mono text-xs font-bold px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black shadow-lg shadow-amber-500/15 transition cursor-pointer">
+            SYNTHESIZE CORRELATION
+          </button>
+        </div>
+      </div>
+
+      <!-- Pinned Nodes Grid -->
+      <div id="pinnedNodesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Populated via JS -->
+      </div>
+
+      <!-- Analytical Synthesis Dossier Output -->
+      <div class="bg-dossier border border-rose-500/30 rounded-2xl p-6 shadow-xl">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-800 font-mono text-xs">
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="caseCodeLabel" class="text-amber-400 font-bold">ASSESSMENT ID: #OSINT-2026-409</span>
+            <span id="regionsLinkedBadge" class="px-2.5 py-0.5 rounded bg-rose-500/15 text-rose-300 border border-rose-500/30 text-[11px]">2 REGION(S) // 3 DOMAIN(S)</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span id="synthesisConfidence" class="text-slate-400">MEAN COINCIDENCE LEVEL: 94.0%</span>
+            <button id="copySynthesisBtn" onclick="copySynthesis()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 cursor-pointer">
+              COPY ASSESSMENT
+            </button>
+          </div>
+        </div>
+
+        <h3 id="synthesisTitle" class="text-base sm:text-lg font-extrabold text-white mb-3 tracking-wide">
+          AWAITING CORRELATION NODES
+        </h3>
+        <div id="synthesisBody" class="space-y-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
+          <p>Pin 2 to 4 dossiers from the Intelligence Feed to generate a cross-domain analytical assessment.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL: COINCIDENCE LEVEL SCORE BREAKDOWN -->
+  <div id="breakdownModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onclick="if(event.target === this) closeBreakdownModal()">
+    <div class="bg-dossier border border-amber-500/40 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+      <div class="flex items-start justify-between gap-3 mb-4">
+        <div>
+          <span class="font-mono text-[10px] text-amber-400 uppercase tracking-widest">// COINCIDENCE METRIC AUDIT //</span>
+          <h3 id="bdTitle" class="font-mono text-sm sm:text-base font-bold text-white mt-1 leading-snug"></h3>
+        </div>
+        <button onclick="closeBreakdownModal()" class="text-slate-400 hover:text-white font-mono text-lg cursor-pointer">✕</button>
+      </div>
+
+      <div class="bg-obsidian border border-slate-800 rounded-xl p-4 mb-4 flex items-center justify-between">
+        <div>
+          <span class="font-mono text-[10px] text-slate-500 block">COMPOSITE COINCIDENCE LEVEL</span>
+          <span id="bdScore" class="font-mono text-2xl font-extrabold text-amber-400"></span>
+        </div>
+        <span id="bdTierBadge" class="font-mono text-[11px] font-bold px-3 py-1 rounded-lg border"></span>
+      </div>
+
+      <div id="bdCriteriaList" class="space-y-3.5 font-mono text-xs">
+        <!-- Populated via JS -->
+      </div>
+
+      <div class="mt-5 pt-3 border-t border-slate-800/80 flex justify-between items-center font-mono text-[10px] text-slate-500">
+        <span>WEIGHTED MULTI-VECTOR SCORING</span>
+        <button onclick="closeBreakdownModal()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 cursor-pointer">CLOSE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: SUBMIT FIELD SIGHTING / LEAD -->
+  <div id="fieldLogModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-dossier border border-amber-500/40 rounded-2xl max-w-lg w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-mono text-lg font-bold text-amber-400">+ LOG FIELD SIGHTING / LEAD</h3>
+        <button onclick="closeFieldLogModal()" class="text-slate-400 hover:text-white font-mono text-lg cursor-pointer">✕</button>
+      </div>
+      <form onsubmit="submitFieldLog(event)" class="space-y-4">
+        <div>
+          <label class="block font-mono text-xs text-slate-400 mb-1">HEADLINE / OBSERVATION SUMMARY</label>
+          <input type="text" id="newHeadline" required placeholder="e.g., Unexplained bullion vault audit delay ahead of sovereign rate announcement..."
+            class="w-full bg-obsidian border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-amber-500 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block font-mono text-xs text-amber-400 mb-1">IN PLAIN ENGLISH (1-2 SENTENCE HOOK)</label>
+          <input type="text" id="newPlainEnglish" required placeholder="e.g., Big banks quietly bought physical gold while crashing the paper price for everyday investors."
+            class="w-full bg-obsidian border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-amber-500 focus:outline-none" />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-mono text-xs text-slate-400 mb-1">GLOBAL REGION</label>
+            <select id="newRegion" class="w-full bg-obsidian border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:border-amber-500 focus:outline-none">
+              <option value="ASIA-PACIFIC">ASIA-PACIFIC</option>
+              <option value="MIDDLE EAST & AFRICA">MIDDLE EAST & AFRICA</option>
+              <option value="EUROPE">EUROPE</option>
+              <option value="AMERICAS">AMERICAS</option>
+              <option value="GLOBAL / ORBITAL">GLOBAL / ORBITAL</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-mono text-xs text-slate-400 mb-1">NEWS CATEGORY</label>
+            <select id="newSubject" class="w-full bg-obsidian border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:border-amber-500 focus:outline-none">
+              <option value="BUSINESS & FINANCE">BUSINESS & FINANCE</option>
+              <option value="SPORTS">SPORTS</option>
+              <option value="HEALTH & SCIENCE">HEALTH & SCIENCE</option>
+              <option value="HISTORY & ARCHAEOLOGY">HISTORY & ARCHAEOLOGY</option>
+              <option value="AEROSPACE & TECH">AEROSPACE & TECH</option>
+              <option value="EARTH & ENVIRONMENT">EARTH & ENVIRONMENT</option>
+              <option value="WORLD & ARCHIVES">WORLD & ARCHIVES</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-mono text-xs text-slate-400 mb-1">LOCATION / SECTOR</label>
+            <input type="text" id="newLocation" required placeholder="e.g., MANILA / COMEX DESK"
+              class="w-full bg-obsidian border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:border-amber-500 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block font-mono text-xs text-slate-400 mb-1">COINCIDENCE LEVEL (1-99)</label>
+            <input type="number" id="newIndex" min="1" max="99" value="84" required
+              class="w-full bg-obsidian border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-amber-400 focus:border-amber-500 focus:outline-none" />
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-mono text-xs text-slate-400 mb-1">EVIDENCE GRADE</label>
+            <select id="newEvidenceGrade" class="w-full bg-obsidian border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:border-amber-500 focus:outline-none">
+              <option value="Unverified Field Report">Unverified Field Report</option>
+              <option value="Regulatory / Market Data">Regulatory / Market Data</option>
+              <option value="Peer-Reviewed DOI">Peer-Reviewed DOI</option>
+              <option value="Retraction Watch Record">Retraction Watch Record</option>
+              <option value="Declassified Gov File">Declassified Gov File</option>
+              <option value="Telemetry / Sensor Log">Telemetry / Sensor Log</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-mono text-xs text-slate-400 mb-1">SOURCE REFERENCE / DOI</label>
+            <input type="text" id="newCitationRef" required placeholder="e.g., Filing #2026-88B / DOI"
+              class="w-full bg-obsidian border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-white focus:border-amber-500 focus:outline-none" />
+          </div>
+        </div>
+        <div>
+          <label class="block font-mono text-xs text-slate-400 mb-1">VERIFICATION URL (OPTIONAL)</label>
+          <input type="url" id="newSourceUrl" placeholder="https://..."
+            class="w-full bg-obsidian border border-slate-700 rounded-xl px-3.5 py-2 text-xs font-mono text-white focus:border-amber-500 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block font-mono text-xs text-emerald-400 mb-1">PUBLIC RECORD (VERIFIED CITATIONS)</label>
+          <textarea id="newPublicRecord" rows="2" required placeholder="Documented institutional statement, market print, or peer-reviewed baseline..."
+            class="w-full bg-obsidian border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:border-emerald-500 focus:outline-none"></textarea>
+        </div>
+        <div>
+          <label class="block font-mono text-xs text-rose-400 mb-1">ALTERNATIVE HYPOTHESIS (UNVERIFIED ANGLES)</label>
+          <textarea id="newAltHypothesis" rows="2" required placeholder="Timing anomaly, institutional gatekeeping, or suppressed correlation..."
+            class="w-full bg-obsidian border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:border-rose-500 focus:outline-none"></textarea>
+        </div>
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" onclick="closeFieldLogModal()" class="font-mono text-xs px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 cursor-pointer">
+            CANCEL
+          </button>
+          <button type="submit" class="font-mono text-xs font-bold px-5 py-2.5 rounded-xl bg-amber-500 text-black hover:bg-amber-400 cursor-pointer">
+            COMMIT TO ARCHIVE
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Built-in Baseline Archive (Always available offline & merged with daily_feed.json)
+    const defaultDossiers = [
+      {
+        id: 'osint-01',
+        date: 'NOV 25, 2026',
+        region: 'AMERICAS',
+        location: 'NEW YORK // COMEX & BULLION DESKS',
+        subject: 'BUSINESS & FINANCE',
+        coincidenceLevel: 94,
+        breakdown: { deviation: 92, timing: 97, multiSource: 94, opacity: 93 },
+        evidenceGrade: 'Regulatory / Market Data',
+        citationSource: 'Federal Reserve Bank of NY Speech (Nov 23, 2026) & Silver Institute / Kitco Spot Data',
+        sourceUrl: 'https://www.kitco.com',
+        headline: 'Silver Plunges 5% Below $41/oz on Paper Futures Even as Central Banks Hoard Physical Bullion',
+        plainEnglish: 'Big financial institutions are dumping "paper" silver contracts to drive prices down, even though real-world mine supply is shrinking and governments are quietly buying up actual physical gold bars.',
+        publicRecord: 'Spot silver plunged 5% below $41/oz (down ~60% from earlier 2026 record highs) and gold dropped below $3,562/oz ahead of US inflation data as NY Fed President John Williams cited tariffs and AI capex inflation pressures, while World Gold Council & mining supply reports show mined silver down 0.5% to 834M oz and sovereign central banks continuing net gold accumulation.',
+        altHypothesis: 'Coordinated paper-market suppression via COMEX derivatives to shake retail holders out of physical bullion before sovereign currency restructuring.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-18',
+        date: 'NOV 2026',
+        region: 'AMERICAS',
+        location: 'SANTA CLARA & WALL STREET // AI CHIP SUPPLY CHAIN',
+        subject: 'BUSINESS & FINANCE',
+        coincidenceLevel: 91,
+        breakdown: { deviation: 89, timing: 94, multiSource: 92, opacity: 89 },
+        evidenceGrade: 'Regulatory / Market Data',
+        citationSource: 'SEC 10-Q Filings & U.S. BIS Export Control Enforcement Docket (NVIDIA / AI Cloud Suppliers)',
+        sourceUrl: 'https://www.sec.gov/edgar',
+        headline: 'AI Chipmakers Invest Billions Into the Same Cloud Startups Buying Their GPUs Back',
+        plainEnglish: 'Tech giants like NVIDIA invest billions into AI startups, and those startups immediately spend that exact cash buying NVIDIA chips—making demand look way bigger than it really is.',
+        publicRecord: 'SEC filings and corporate disclosures confirm circular vendor-financing arrangements where leading AI chipmakers and hyperscalers take equity stakes in GPU cloud startups (such as CoreWeave and sovereign AI funds) that simultaneously commit billions in hardware purchase orders back to the investors, alongside U.S. Commerce Department probes into restricted chip smuggling via third-party shell hubs.',
+        altHypothesis: 'Circular revenue engineering is inflating the AI hardware bubble to sustain trillion-dollar valuations while real-world enterprise AI software profits lag far behind.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-02',
+        date: 'NOV 20, 2026',
+        region: 'GLOBAL / ORBITAL',
+        location: 'PARIS / GENEVA / WASHINGTON D.C.',
+        subject: 'BUSINESS & FINANCE',
+        coincidenceLevel: 89,
+        breakdown: { deviation: 88, timing: 91, multiSource: 90, opacity: 87 },
+        evidenceGrade: 'Regulatory / Market Data',
+        citationSource: 'OECD / UNCTAD Investment Trends Monitor & FDIC Q3 Banking Profile (Nov 2026)',
+        sourceUrl: 'https://www.oecd.org',
+        headline: 'G20 Factory Spending Hits Pandemic Lows While Major Banks Quietly Log $84.8B in Quarterly Profit',
+        plainEnglish: 'Investment in real factories and jobs across the world\'s 20 biggest economies just dropped to lockdown-era lows, yet mega-banks made nearly $85 billion in a single quarter just from trading and interest.',
+        publicRecord: 'Joint OECD and UNCTAD Global Investment Trends Monitor reports G20 manufacturing capex commitments fell to 2020 pandemic-era troughs even as major US banks posted a 7% Q3 profit jump to $84.8B.',
+        altHypothesis: 'Capital is deliberately being starved from real-world physical production and funneled into sovereign debt monetization and algorithmic liquidity loops.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-13',
+        date: 'NOV 2026',
+        region: 'AMERICAS',
+        location: 'EASTERN DISTRICT OF NEW YORK // U.S. DOJ & NBA',
+        subject: 'SPORTS',
+        coincidenceLevel: 95,
+        breakdown: { deviation: 94, timing: 98, multiSource: 96, opacity: 92 },
+        evidenceGrade: 'Declassified Gov File',
+        citationSource: 'U.S. Dept. of Justice Indictment (EDNY) & NBA Lifetime Ban Ruling (Jontay Porter / Terry Rozier Probe)',
+        sourceUrl: 'https://www.justice.gov/usao-edny',
+        headline: 'Federal Indictments Expose Insider NBA Prop-Bet Ring Where Players Faked Injuries on Cue',
+        plainEnglish: 'Federal prosecutors proved gamblers were tipped off before games when certain NBA players would fake an injury and leave early—so bettors could cash in on bets that the players would score low.',
+        publicRecord: 'U.S. Department of Justice indictments in the Eastern District of New York and NBA league investigations documented conspirators placing massive "under" player-prop bets using confidential pre-game injury tips, including NBA player Jontay Porter exiting games early after claiming illness/injury to trigger payouts.',
+        altHypothesis: 'Pro-level player-prop manipulation is not isolated to a few role players—sportsbook syndicate leaks and selective league enforcement shield marquee playoff stars.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-14',
+        date: 'NOV 2026',
+        region: 'EUROPE',
+        location: 'LONDON // PREMIER LEAGUE & PGMOL',
+        subject: 'SPORTS',
+        coincidenceLevel: 87,
+        breakdown: { deviation: 85, timing: 88, multiSource: 87, opacity: 88 },
+        evidenceGrade: 'Regulatory / Market Data',
+        citationSource: 'PGMOL Independent Key Match Incidents Panel & Premier League VAR Audit',
+        sourceUrl: 'https://www.premierleague.com',
+        headline: 'Premier League Audit Admits Dozens of VAR Errors After Referees Refuse Live Mic Broadcasts',
+        plainEnglish: 'Official Premier League audits confirmed dozens of wrong video-review calls that decided major matches, yet football officials still block fans from hearing referee audio live during games.',
+        publicRecord: 'Premier League Key Match Incidents (KMI) panel audits confirmed over 30 VAR officiating errors in a single season—including high-profile disallowed valid goals due to miscommunication—while IFAB and PGMOL continue prohibiting live in-stadium broadcast of VAR audio.',
+        altHypothesis: 'Keeping VAR booth conversations private during live play protects narrative-driven title races and high-stakes broadcast ratings from real-time scrutiny.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-15',
+        date: 'NOV 2026',
+        region: 'ASIA-PACIFIC',
+        location: 'MANILA & QUEZON CITY // PHILIPPINE BASKETBALL',
+        subject: 'SPORTS',
+        coincidenceLevel: 85,
+        breakdown: { deviation: 83, timing: 87, multiSource: 84, opacity: 86 },
+        evidenceGrade: 'Regulatory / Market Data',
+        citationSource: 'Games and Amusements Board (GAB) & NBI Game-Fixing Investigation Dossiers',
+        sourceUrl: 'https://gab.gov.ph',
+        headline: 'NBI & GAB Crackdowns Uncover Point-Shaving Syndicates Targeting Regional Philippine Basketball',
+        plainEnglish: 'Philippine investigators and sports regulators have repeatedly busted point-shaving rings paying players and officials to miss late free throws or shave margins so offshore bettors win.',
+        publicRecord: 'The Games and Amusements Board (GAB), National Bureau of Investigation (NBI), and regional leagues (MPBL/PBA) have filed multiple game-fixing and point-shaving charges against players and syndicate runners who manipulated second-half point spreads for illegal betting rings.',
+        altHypothesis: 'Offshore Asian betting syndicates wield deeper financial leverage over regional pro and collegiate rosters than occasional low-level arrests suggest.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-03',
+        date: 'NOV 18, 2026',
+        region: 'AMERICAS',
+        location: 'BETHESDA, MARYLAND // NIH ARCHIVES',
+        subject: 'HEALTH & SCIENCE',
+        coincidenceLevel: 92,
+        breakdown: { deviation: 94, timing: 86, multiSource: 95, opacity: 93 },
+        evidenceGrade: 'Retraction Watch Record',
+        citationSource: 'Retraction Watch / CASRAI Integrity Ledger (Nov 18, 2026)',
+        sourceUrl: 'https://retractionwatch.com',
+        headline: 'Thirty Studies Retracted: Former NIH Neuroscientist Flagged for Decades of Altered Lab Data',
+        plainEnglish: 'A top government brain researcher had 30 medical studies pulled from science journals after sleuths proved the lab images were edited—meaning billions in drug research may have chased fake results.',
+        publicRecord: 'Retraction Watch and CASRAI confirmed a 30th paper retraction for a former National Institutes of Health neuroscientist across multiple peer-reviewed journals following multi-year investigations into altered Western blot images and statistical anomalies.',
+        altHypothesis: 'Institutional gatekeepers protected foundational neuro-pharmacology paradigms for decades to shield multi-billion-dollar drug pipelines built on flawed baseline studies.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-04',
+        date: 'NOV 12, 2026',
+        region: 'GLOBAL / ORBITAL',
+        location: 'INTERNATIONAL CLINICAL TRIAL REGISTRIES',
+        subject: 'HEALTH & SCIENCE',
+        coincidenceLevel: 86,
+        breakdown: { deviation: 85, timing: 89, multiSource: 84, opacity: 86 },
+        evidenceGrade: 'Retraction Watch Record',
+        citationSource: 'Retraction Watch Clinical Trial Audit (Oct–Nov 2026)',
+        sourceUrl: 'https://retractionwatch.com',
+        headline: 'Long COVID Drug Trial Quietly Retracted and Republished With Altered Dosage Figures',
+        plainEnglish: 'A clinical trial testing a cheap, off-patent pill for Long COVID was pulled and quietly re-uploaded with changed dosage numbers after independent reviewers caught mismatched figures.',
+        publicRecord: 'Retraction Watch documented a clinical trial on fluvoxamine for Long COVID retracted and republished after independent sleuths flagged discrepancies between the trial protocol dosage (100mg BID) and cited comparator studies (100mg daily), joining nearly 800 retracted pandemic-era papers.',
+        altHypothesis: 'Selective editorial gatekeeping fast-tracks patentable therapeutics while burying off-patent generic protocols until patent windows close.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-05',
+        date: 'NOV 15, 2026',
+        region: 'EUROPE',
+        location: 'LONDON & AMSTERDAM // ACADEMIC PUBLISHERS',
+        subject: 'HEALTH & SCIENCE',
+        coincidenceLevel: 76,
+        breakdown: { deviation: 78, timing: 72, multiSource: 77, opacity: 77 },
+        evidenceGrade: 'Retraction Watch Record',
+        citationSource: 'Retraction Watch Publisher Investigation Tracker (Nov 2026)',
+        sourceUrl: 'https://retractionwatch.com',
+        headline: 'Major Science Publishers Launch Ethics Probe Into Statistically Impossible Biometric Studies',
+        plainEnglish: 'Two giant medical publishers are investigating published blood-test studies whose results were so mathematically "perfect" that independent statisticians say they couldn\'t happen in real life.',
+        publicRecord: 'Two major academic publishers opened formal ethics and peer-review investigations into published biometric blood-typing studies after independent statistical reviewers flagged impossible accuracy distributions.',
+        altHypothesis: 'Automated peer-review mills are flooding medical databases to obscure legitimate non-invasive diagnostic biomarkers.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-06',
+        date: 'NOV 20, 2026',
+        region: 'AMERICAS',
+        location: 'WASHINGTON, D.C. // PENTAGON ARCHIVES',
+        subject: 'AEROSPACE & TECH',
+        coincidenceLevel: 96,
+        breakdown: { deviation: 97, timing: 95, multiSource: 96, opacity: 96 },
+        evidenceGrade: 'Declassified Gov File',
+        citationSource: 'DoW Release #4655441 / WAR.GOV/UFO (Nov 20, 2026)',
+        sourceUrl: 'https://www.war.gov',
+        headline: 'Pentagon Batch 8 Logs Mach 2.5 Radar Track at 70,000 Feet Alongside Exotic-Material Vault Blueprints',
+        plainEnglish: 'Newly released Pentagon files confirm air-traffic radar tracked an object flying 2.5 times the speed of sound at 70,000 feet—plus blueprints for a government vault meant to store "exotic materials."',
+        publicRecord: 'U.S. Department of War Release Article 4655441 published 40 declassified files and 3 infrared videos, including a 2023 civil air-surveillance radar report logging 8 detections over 84 seconds at 55,000–70,000 ft (~Mach 2.5) and AAWSAP contractor designs for an unbuilt exotic-material storage facility.',
+        altHypothesis: 'Controlled drip-disclosure conditioning the public while keeping recovered non-human craft inside unacknowledged Special Access Programs.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-07',
+        date: 'NOV 13, 2026',
+        region: 'AMERICAS',
+        location: 'BOCA CHICA, TX // US NATIONAL AIRSPACE',
+        subject: 'AEROSPACE & TECH',
+        coincidenceLevel: 91,
+        breakdown: { deviation: 87, timing: 98, multiSource: 93, opacity: 86 },
+        evidenceGrade: 'Telemetry / Sensor Log',
+        citationSource: 'FAA Air Traffic Command Advisory & SpaceX Flight 15 Telemetry (Nov 13, 2026)',
+        sourceUrl: 'https://www.faa.gov',
+        headline: 'Nationwide FAA Ground Stop Hits the Exact Hour a Glowing Plume Blankets the Sky Over Mexico',
+        plainEnglish: 'Every commercial flight in the U.S. was suddenly grounded for four hours on the exact night a massive glowing cone lit up the sky over Mexico—officially blamed on a phone switch glitch and a SpaceX launch.',
+        publicRecord: 'FAA issued a 4-hour national ground stop (10,000+ delays) due to center-to-center telecom switch overloads on the exact evening SpaceX Starship Flight 15 launched from Starbase, TX, producing a high-altitude dusk exhaust jellyfish plume across Mexico.',
+        altHypothesis: 'The telecom failure was an electronic warfare/sensor blackout triggered by an unannounced orbital interception masquerading behind a scheduled launch window.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-08',
+        date: 'NOV 24, 2026',
+        region: 'MIDDLE EAST & AFRICA',
+        location: 'ISTANBUL, TURKEY // GIZA PLATEAU, EGYPT',
+        subject: 'HISTORY & ARCHAEOLOGY',
+        coincidenceLevel: 87,
+        breakdown: { deviation: 86, timing: 88, multiSource: 85, opacity: 89 },
+        evidenceGrade: 'Peer-Reviewed DOI',
+        citationSource: 'Istanbul Directorate of Cultural Heritage Survey & ScanPyramids Muography Archive',
+        sourceUrl: 'https://www.nature.com',
+        headline: 'Deep Radar & Muon Scans Uncover Multi-Tier Subterranean Chambers Under Istanbul and Giza',
+        plainEnglish: 'Underground radar and cosmic-ray scans in Turkey and Egypt keep finding hidden multi-level tunnels and sealed chambers beneath ancient landmarks that officials still won\'t excavate.',
+        publicRecord: 'Municipal archaeological surveys in Istanbul documented multi-tier Byzantine-Ottoman cisterns and Edirnekapı aqueduct conduits beneath Nuruosmaniye, while ground-penetrating radar and muon tomography studies at Giza continue mapping known subterranean shafts and void anomalies.',
+        altHypothesis: 'Interconnected pre-Bronze Age subterranean infrastructure engineered for acoustic/geothermal energy harvesting rather than simple water storage.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-09',
+        date: 'NOV 18, 2026',
+        region: 'ASIA-PACIFIC',
+        location: 'GUANGXI PROVINCE, SOUTHERN CHINA',
+        subject: 'HISTORY & ARCHAEOLOGY',
+        coincidenceLevel: 90,
+        breakdown: { deviation: 93, timing: 84, multiSource: 95, opacity: 88 },
+        evidenceGrade: 'Peer-Reviewed DOI',
+        citationSource: 'Nature Vol. 647, DOI: 10.1038/s41586-026-11155-6 (Nov 18, 2026)',
+        sourceUrl: 'https://doi.org/10.1038/s41586-026-11155-6',
+        headline: '200,000-Year Timeline Error: Chinese Cave Fossils Overturn Asian Homo Erectus Extinction Date',
+        plainEnglish: 'Ancient teeth found in Southern China prove an early human species survived 200,000 years longer than history books claimed—meaning they lived alongside modern humans.',
+        publicRecord: 'Two Nature studies (Westaway et al., DOI: 10.1038/s41586-026-11155-6; Liao et al., DOI: 10.1038/s41586-026-11271-3) dated 8 fossilized teeth in Naxian and Baxian caves to ~250,000–300,000 years ago, overturning the textbook extinction timeline for Asian Homo erectus.',
+        altHypothesis: 'Deep-jungle refugia in Southeast Asia and Southern China harbored overlapping hominin civilizations far closer to recorded human memory than mainstream anthropology admits.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-11',
+        date: 'NOV 18, 2026',
+        region: 'GLOBAL / ORBITAL',
+        location: 'NORTH AMERICAN, AUSTRALIAN & AFRICAN CRATONS',
+        subject: 'EARTH & ENVIRONMENT',
+        coincidenceLevel: 88,
+        breakdown: { deviation: 91, timing: 82, multiSource: 93, opacity: 86 },
+        evidenceGrade: 'Peer-Reviewed DOI',
+        citationSource: 'Proceedings of the National Academy of Sciences (PNAS)',
+        sourceUrl: 'https://www.pnas.org',
+        headline: 'Over One Billion Years of Continental Rock Record Vanished Simultaneously Across Three Continents',
+        plainEnglish: 'Over a billion years of Earth\'s rock layers are completely missing across North America, Africa, and Australia at the exact same spot—as if something scraped the continents clean.',
+        publicRecord: 'Zircon thermochronology published in PNAS confirms 1.2 billion years of eroded Precambrian rock missing globally between 1.7-billion-year-old basement granite and 550-million-year-old Cambrian sandstone.',
+        altHypothesis: 'Evidence of a global crustal displacement or planetary-scale cataclysm stripped continents bare far more violently than gradual glacial erosion explains.',
+        activeLens: 'public'
+      },
+      {
+        id: 'osint-12',
+        date: 'NOV 21, 2026',
+        region: 'EUROPE',
+        location: 'VATICAN CITY & MUNICH ARCHIVE VAULTS',
+        subject: 'WORLD & ARCHIVES',
+        coincidenceLevel: 78,
+        breakdown: { deviation: 76, timing: 74, multiSource: 73, opacity: 89 },
+        evidenceGrade: 'Declassified Gov File',
+        citationSource: 'European Cartographic Conservation Registry (Nov 2026)',
+        sourceUrl: 'https://www.digitale-sammlungen.de',
+        headline: 'Vatican & European Vaults Halt Public Digitization of Pre-1600 Antarctic-Fringe Sea Charts',
+        plainEnglish: 'European royal and Vatican libraries paused public high-res scans of 500-year-old sea maps that appear to show coastlines near Antarctica centuries before explorers officially found it.',
+        publicRecord: 'Conservation directives restrict physical handling and high-resolution public release of fragile 14th–16th century Mediterranean and Antarctic-fringe portolan charts citing pigment degradation.',
+        altHypothesis: 'Early portolan maps preserve ice-free coastal topography copied from lost antediluvian navigation libraries.',
+        activeLens: 'public'
+      }
+    ];
+
+    const liveWireArchivePool = [
+      {
+        id: 'osint-16',
+        date: 'NOV 25, 2026',
+        region: 'ASIA-PACIFIC',
+        location: 'SULAWESI & FLORES, INDONESIA',
+        subject: 'HISTORY & ARCHAEOLOGY',
+        coincidenceLevel: 90,
+        breakdown: { deviation: 92, timing: 85, multiSource: 93, opacity: 90 },
+        evidenceGrade: 'Peer-Reviewed DOI',
+        citationSource: 'Journal of Archaeological Science // Wallacea Radiometric Archive',
+        sourceUrl: 'https://www.sciencedirect.com',
+        headline: 'Uranium-Series Cave Dating Proves Ice Age Mariners Crossed Deep Ocean Trenches in Indonesia',
+        plainEnglish: 'Radiometric dating in Indonesian caves proves Ice Age humans built seaworthy boats and crossed deep, dangerous ocean currents tens of thousands of years earlier than textbooks taught.',
+        publicRecord: 'New uranium-series dating on cave art and stone terraces in island Southeast Asia confirms early hominins repeatedly crossed deep ocean trenches using sophisticated watercraft.',
+        altHypothesis: 'Textbooks long portrayed Ice Age humanity as landlocked hunter-gatherers; evidence of open-ocean navigation in Wallacea proves an advanced maritime culture existed long before recorded history.',
+        activeLens: 'public'
+      }
+    ];
+
+    const STORAGE_KEY = 'something_fishy_osint_v8';
+    let dossiers = [];
+    let selectedRegion = 'ALL REGIONS';
+    let selectedSubject = 'ALL CATEGORIES';
+    let pinnedIds = ['osint-01', 'osint-18', 'osint-13'];
+
+    const regions = [
+      'ALL REGIONS',
+      'ASIA-PACIFIC',
+      'MIDDLE EAST & AFRICA',
+      'EUROPE',
+      'AMERICAS',
+      'GLOBAL / ORBITAL'
+    ];
+
+    const subjects = [
+      'ALL CATEGORIES',
+      'BUSINESS & FINANCE',
+      'SPORTS',
+      'HEALTH & SCIENCE',
+      'HISTORY & ARCHAEOLOGY',
+      'AEROSPACE & TECH',
+      'EARTH & ENVIRONMENT',
+      'WORLD & ARCHIVES'
+    ];
+
+    function getCoincidenceTier(score) {
+      if (score >= 90) {
+        return {
+          label: 'Really Fishy',
+          badgeClass: 'bg-rose-500/15 text-rose-400 border-rose-500/40'
+        };
+      }
+      if (score >= 75) {
+        return {
+          label: 'Pretty Fishy',
+          badgeClass: 'bg-amber-500/15 text-amber-300 border-amber-500/40'
+        };
+      }
+      if (score >= 55) {
+        return {
+          label: 'Slightly Fishy',
+          badgeClass: 'bg-teal-500/15 text-teal-300 border-teal-500/35'
+        };
+      }
+      return {
+        label: 'Barely Fishy',
+        badgeClass: 'bg-slate-800 text-slate-300 border-slate-700'
+      };
+    }
+
+    function getEvidenceBadgeClass(grade) {
+      const g = (grade || '').toLowerCase();
+      if (g.includes('doi') || g.includes('peer')) return 'bg-emerald-500/15 text-emerald-300 border-emerald-500/35';
+      if (g.includes('declassified') || g.includes('gov')) return 'bg-sky-500/15 text-sky-300 border-sky-500/35';
+      if (g.includes('regulatory') || g.includes('market')) return 'bg-indigo-500/15 text-indigo-300 border-indigo-500/35';
+      if (g.includes('retraction')) return 'bg-amber-500/15 text-amber-300 border-amber-500/35';
+      if (g.includes('telemetry') || g.includes('sensor')) return 'bg-purple-500/15 text-purple-300 border-purple-500/35';
+      return 'bg-rose-500/15 text-rose-300 border-rose-500/35';
+    }
+
+    // Automatically loads daily_feed.json generated by the 6:00 AM GitHub Robot
+    async function loadDossiers() {
+      let savedLogs = [];
+      let automatedDailyFeed = [];
+
+      try {
+        savedLogs = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      } catch (e) {
+        savedLogs = [];
+      }
+
+      try {
+        const res = await fetch('./daily_feed.json?t=' + Date.now());
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.items) && data.items.length > 0) {
+            automatedDailyFeed = data.items.map(item => ({
+              ...item,
+              activeLens: 'public'
+            }));
+            const badge = document.getElementById('feedStatusBadge');
+            if (badge && data.updatedAt) {
+              badge.textContent = `AUTO-UPDATED // ${data.updatedAt}`;
+            }
+          }
+        }
+      } catch (err) {
+        // Gracefully falls back to built-in dossiers when offline or before first robot run
+      }
+
+      const seenHeadlines = new Set();
+      const combined = [...savedLogs, ...automatedDailyFeed, ...defaultDossiers];
+      dossiers = combined.filter(d => {
+        if (seenHeadlines.has(d.headline)) return false;
+        seenHeadlines.add(d.headline);
+        return true;
+      });
+    }
+
+    async function init() {
+      await loadDossiers();
+      renderTicker();
+      renderRegionPills();
+      renderSubjectPills();
+      syncMasterLensButtons();
+      renderDossiers();
+      renderBoard();
+      analyzeCrossRegionalPattern();
+    }
+
+    function renderTicker() {
+      const tickerEl = document.getElementById('tickerContent');
+      if (!tickerEl) return;
+      const items = dossiers.map(d =>
+        `<span class="mx-6"><span class="text-amber-400 font-bold">[${d.region} // ${d.date}]</span> ${d.headline} <span class="text-rose-400">[COINCIDENCE: ${d.coincidenceLevel}%]</span></span>`
+      ).join(' • ');
+      tickerEl.innerHTML = items + items;
+    }
+
+    function renderRegionPills() {
+      const container = document.getElementById('regionPills');
+      container.innerHTML = regions.map(reg => {
+        const active = selectedRegion === reg;
+        return `
+          <button onclick="setRegion('${reg}')"
+            class="font-mono text-[11px] px-3 py-1.5 rounded-lg border whitespace-nowrap transition cursor-pointer ${
+              active
+                ? 'bg-amber-500 text-black border-amber-500 font-bold'
+                : 'bg-obsidian border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+            }">
+            ${reg}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderSubjectPills() {
+      const container = document.getElementById('subjectPills');
+      container.innerHTML = subjects.map(sub => {
+        const active = selectedSubject === sub;
+        return `
+          <button onclick="setSubject('${sub}')"
+            class="font-mono text-[11px] px-3 py-1.5 rounded-lg border whitespace-nowrap transition cursor-pointer ${
+              active
+                ? 'bg-slate-200 text-black border-slate-200 font-bold'
+                : 'bg-obsidian border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+            }">
+            ${sub}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function setRegion(reg) {
+      selectedRegion = reg;
+      renderRegionPills();
+      renderDossiers();
+    }
+
+    function setSubject(sub) {
+      selectedSubject = sub;
+      renderSubjectPills();
+      renderDossiers();
+    }
+
+    function renderDossiers() {
+      const grid = document.getElementById('dossierGrid');
+      const emptyState = document.getElementById('emptyState');
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+
+      const filtered = dossiers.filter(d => {
+        const matchRegion = selectedRegion === 'ALL REGIONS' || d.region === selectedRegion;
+        const matchSubject = selectedSubject === 'ALL CATEGORIES' || d.subject === selectedSubject;
+        const matchQuery = !query ||
+          d.headline.toLowerCase().includes(query) ||
+          (d.plainEnglish && d.plainEnglish.toLowerCase().includes(query)) ||
+          d.publicRecord.toLowerCase().includes(query) ||
+          d.altHypothesis.toLowerCase().includes(query) ||
+          d.citationSource.toLowerCase().includes(query) ||
+          d.location.toLowerCase().includes(query) ||
+          d.region.toLowerCase().includes(query);
+        return matchRegion && matchSubject && matchQuery;
+      });
+
+      document.getElementById('dossierCount').textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      grid.innerHTML = filtered.map(d => {
+        const isAlt = d.activeLens === 'alt';
+        const isPinned = pinnedIds.includes(d.id);
+        const tier = getCoincidenceTier(d.coincidenceLevel);
+        const gradeClass = getEvidenceBadgeClass(d.evidenceGrade);
+
+        return `
+          <article class="bg-dossier hover:bg-dossierHover border ${isAlt ? 'border-rose-500/30' : 'border-emerald-500/30'} rounded-2xl p-5 flex flex-col justify-between transition-all duration-200 shadow-lg">
+            <div>
+              <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] mb-3">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold">
+                    ${d.region}
+                  </span>
+                  <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                    ${d.subject}
+                  </span>
+                </div>
+                <span class="text-slate-400">${d.date}</span>
+              </div>
+
+              <div class="font-mono text-[11px] text-slate-500 mb-1.5 tracking-wide">
+                SECTOR: ${d.location}
+              </div>
+
+              <h2 class="text-base sm:text-lg font-bold text-white leading-snug mb-3">
+                ${d.headline}
+              </h2>
+
+              <div class="bg-amber-500/10 border-l-2 border-amber-400 rounded-r-xl px-3 py-2.5 mb-3.5">
+                <span class="font-mono text-[10px] font-bold text-amber-400 tracking-wider block mb-0.5">IN PLAIN ENGLISH // THE HOOK</span>
+                <p class="text-xs text-slate-200 leading-relaxed">
+                  ${d.plainEnglish || d.publicRecord}
+                </p>
+              </div>
+
+              <div class="grid grid-cols-2 gap-1.5 bg-obsidian p-1 rounded-xl border border-slate-800 mb-3 font-mono text-[10px] sm:text-[11px]">
+                <button onclick="setLens('${d.id}', 'public')"
+                  class="py-1.5 px-2 rounded-lg font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
+                    !isAlt ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' : 'text-slate-500 hover:text-slate-300'
+                  }">
+                  <span>●</span> PUBLIC RECORD (VERIFIED)
+                </button>
+                <button onclick="setLens('${d.id}', 'alt')"
+                  class="py-1.5 px-2 rounded-lg font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
+                    isAlt ? 'bg-rose-500/20 text-rose-400 border border-rose-500/40' : 'text-slate-500 hover:text-slate-300'
+                  }">
+                  <span>◈</span> ALT HYPOTHESIS (UNVERIFIED)
+                </button>
+              </div>
+
+              <div class="rounded-xl p-3.5 text-xs sm:text-sm leading-relaxed mb-3 border ${
+                isAlt
+                  ? 'bg-rose-950/20 border-rose-500/25 text-slate-200'
+                  : 'bg-emerald-950/20 border-emerald-500/25 text-slate-300'
+              }">
+                ${isAlt ? d.altHypothesis : d.publicRecord}
+              </div>
+
+              <div class="bg-obsidian/90 border border-slate-800 rounded-xl p-3 mb-4 font-mono text-[11px]">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                  <span class="px-2 py-0.5 rounded border text-[10px] font-bold ${gradeClass}">
+                    ${d.evidenceGrade}
+                  </span>
+                  <a href="${d.sourceUrl}" target="_blank" rel="noopener noreferrer"
+                    class="text-amber-400 hover:text-amber-300 underline underline-offset-2 flex items-center gap-1 text-[10px] font-bold">
+                    <span>VERIFY SOURCE</span>
+                    <span>↗</span>
+                  </a>
+                </div>
+                <p class="text-slate-400 text-[10px] leading-relaxed">
+                  <span class="text-slate-500">PRIMARY RECORD:</span> ${d.citationSource}
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
+              <button onclick="openBreakdownModal('${d.id}')" title="Click to audit Coincidence Level breakdown"
+                class="text-left group cursor-pointer rounded-xl px-2.5 py-1.5 -ml-2.5 hover:bg-slate-800/70 transition">
+                <div class="flex items-center gap-1.5 text-[10px] text-slate-500 group-hover:text-slate-300">
+                  <span>COINCIDENCE LEVEL</span>
+                  <span class="text-amber-400">[AUDIT ⓘ]</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-2 mt-0.5">
+                  <span class="text-white font-extrabold text-sm">${d.coincidenceLevel}%</span>
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded border ${tier.badgeClass}">
+                    ${tier.label}
+                  </span>
+                </div>
+              </button>
+
+              <button onclick="togglePin('${d.id}')"
+                class="px-3 py-1.5 rounded-xl font-bold text-[11px] transition flex items-center gap-1.5 cursor-pointer ${
+                  isPinned
+                    ? 'bg-rose-600 text-white shadow-md shadow-rose-600/20'
+                    : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'
+                }">
+                <span>${isPinned ? 'PINNED TO BOARD' : '+ CORRELATE NODE'}</span>
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function setLens(id, lens) {
+      const item = dossiers.find(d => d.id === id);
+      if (item) {
+        item.activeLens = lens;
+        renderDossiers();
+      }
+    }
+
+    function syncMasterLensButtons(activeLens = 'public') {
+      const pubBtn = document.getElementById('masterPublicBtn');
+      const altBtn = document.getElementById('masterAltBtn');
+      if (activeLens === 'public') {
+        pubBtn.className = 'px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold transition cursor-pointer';
+        altBtn.className = 'px-3 py-1.5 rounded-lg text-slate-400 hover:text-rose-400 transition cursor-pointer';
+      } else {
+        altBtn.className = 'px-3 py-1.5 rounded-lg bg-rose-500/20 text-rose-400 border border-rose-500/40 font-bold transition cursor-pointer';
+        pubBtn.className = 'px-3 py-1.5 rounded-lg text-slate-400 hover:text-emerald-400 transition cursor-pointer';
+      }
+    }
+
+    function setAllLenses(lens) {
+      dossiers.forEach(d => { d.activeLens = lens; });
+      syncMasterLensButtons(lens);
+      renderDossiers();
+    }
+
+    function openBreakdownModal(id) {
+      const d = dossiers.find(item => item.id === id);
+      if (!d) return;
+
+      const tier = getCoincidenceTier(d.coincidenceLevel);
+      const bd = d.breakdown || {
+        deviation: d.coincidenceLevel,
+        timing: Math.max(50, d.coincidenceLevel - 3),
+        multiSource: Math.min(99, d.coincidenceLevel + 2),
+        opacity: d.coincidenceLevel
+      };
+
+      document.getElementById('bdTitle').textContent = d.headline;
+      document.getElementById('bdScore').textContent = `${d.coincidenceLevel}%`;
+
+      const badge = document.getElementById('bdTierBadge');
+      badge.textContent = tier.label;
+      badge.className = `font-mono text-[11px] font-bold px-3 py-1 rounded-lg border ${tier.badgeClass}`;
+
+      const criteria = [
+        {
+          name: 'CONSENSUS DEVIATION',
+          desc: 'Degree of friction between primary evidence and established institutional narrative.',
+          score: bd.deviation
+        },
+        {
+          name: 'TIMING & COINCIDENCE CLUSTERING',
+          desc: 'Synchronization with unrelated market shocks, policy drops, or infrastructure outages.',
+          score: bd.timing
+        },
+        {
+          name: 'MULTI-SOURCE SIGNAL',
+          desc: 'Corroboration across independent datasets, filings, sensor logs, or peer-reviewed audits.',
+          score: bd.multiSource
+        },
+        {
+          name: 'INFORMATION OPACITY',
+          desc: 'Extent of archival restrictions, redactions, or delayed institutional disclosure.',
+          score: bd.opacity
+        }
+      ];
+
+      document.getElementById('bdCriteriaList').innerHTML = criteria.map(c => `
+        <div class="bg-obsidian/80 border border-slate-800/90 rounded-xl p-3">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-slate-200 font-bold text-[11px]">${c.name}</span>
+            <span class="text-amber-400 font-bold">${c.score}%</span>
+          </div>
+          <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden mb-1.5">
+            <div class="h-full bg-amber-400 rounded-full" style="width: ${c.score}%"></div>
+          </div>
+          <p class="font-sans text-[11px] text-slate-400 leading-snug">${c.desc}</p>
+        </div>
+      `).join('');
+
+      document.getElementById('breakdownModal').classList.remove('hidden');
+    }
+
+    function closeBreakdownModal() {
+      document.getElementById('breakdownModal').classList.add('hidden');
+    }
+
+    function togglePin(id) {
+      if (pinnedIds.includes(id)) {
+        pinnedIds = pinnedIds.filter(pid => pid !== id);
+      } else {
+        if (pinnedIds.length >= 4) {
+          pinnedIds.shift();
+        }
+        pinnedIds.push(id);
+      }
+      document.getElementById('pinBadge').textContent = pinnedIds.length;
+      renderDossiers();
+      renderBoard();
+      if (pinnedIds.length >= 2) {
+        analyzeCrossRegionalPattern();
+      }
+    }
+
+    function clearPins() {
+      pinnedIds = [];
+      document.getElementById('pinBadge').textContent = '0';
+      document.getElementById('regionsLinkedBadge').textContent = '0 SECTORS LINKED';
+      renderDossiers();
+      renderBoard();
+      document.getElementById('synthesisTitle').textContent = 'AWAITING CORRELATION NODES';
+      document.getElementById('synthesisBody').innerHTML = '<p>Pin 2 to 4 dossiers from the Intelligence Feed to generate a cross-domain analytical assessment.</p>';
+    }
+
+    function renderBoard() {
+      const container = document.getElementById('pinnedNodesContainer');
+      const pinnedItems = pinnedIds.map(id => dossiers.find(d => d.id === id)).filter(Boolean);
+
+      if (pinnedItems.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full bg-obsidian/70 border border-dashed border-slate-700 rounded-xl p-8 text-center font-mono text-xs text-slate-400">
+            NO DOSSIERS PINNED. Return to "INTELLIGENCE FEED" and select "+ CORRELATE NODE" on 2 to 4 entries.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = pinnedItems.map((item, idx) => {
+        const tier = getCoincidenceTier(item.coincidenceLevel);
+        return `
+          <div class="bg-obsidian border border-rose-500/40 rounded-xl p-4 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between font-mono text-[10px] text-rose-400 mb-2">
+                <span>NODE 0${idx + 1} // ${item.region}</span>
+                <button onclick="togglePin('${item.id}')" class="text-slate-500 hover:text-white cursor-pointer">UNPIN ✕</button>
+              </div>
+              <p class="text-xs sm:text-sm font-bold text-white leading-snug mb-2">${item.headline}</p>
+              <p class="font-mono text-[10px] text-slate-500 mb-3">${item.evidenceGrade} • ${item.coincidenceLevel}% (${tier.label})</p>
+            </div>
+            <div class="flex items-center justify-between font-mono text-[10px] pt-2 border-t border-slate-800/80">
+              <span class="text-amber-400">${item.subject}</span>
+              <span class="text-slate-500">${item.date}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function analyzeCrossRegionalPattern() {
+      const pinnedItems = pinnedIds.map(id => dossiers.find(d => d.id === id)).filter(Boolean);
+      if (pinnedItems.length < 2) {
+        showStatus('Pin at least 2 intelligence dossiers to synthesize a cross-domain correlation brief.');
+        return;
+      }
+
+      const uniqueRegions = [...new Set(pinnedItems.map(i => i.region))];
+      const uniqueSubjects = [...new Set(pinnedItems.map(i => i.subject))];
+      const avgIndex = (pinnedItems.reduce((sum, i) => sum + i.coincidenceLevel, 0) / pinnedItems.length).toFixed(1);
+      const caseNum = Math.floor(200 + Math.random() * 799);
+
+      document.getElementById('caseCodeLabel').textContent = `ASSESSMENT ID: #OSINT-2026-${caseNum}`;
+      document.getElementById('regionsLinkedBadge').textContent = `${uniqueRegions.length} REGION(S) // ${uniqueSubjects.length} DOMAIN(S)`;
+      document.getElementById('synthesisConfidence').textContent = `MEAN COINCIDENCE LEVEL: ${avgIndex}%`;
+
+      let title = 'CROSS-DOMAIN INSTITUTIONAL & CHRONOLOGICAL CONVERGENCE';
+      if (uniqueSubjects.includes('SPORTS') && uniqueSubjects.includes('BUSINESS & FINANCE')) {
+        title = 'ALGORITHMIC LIQUIDITY ASYMMETRY ACROSS SPORTSBOOKS & CAPITAL MARKETS';
+      } else if (uniqueSubjects.includes('SPORTS')) {
+        title = 'SYNCHRONIZED ODDS MOVEMENT, TELEMETRY GAPS & OUTCOME ENGINEERING';
+      } else if (uniqueSubjects.includes('BUSINESS & FINANCE') && uniqueSubjects.includes('AEROSPACE & TECH')) {
+        title = 'CAPITAL LIQUIDITY REALIGNMENT & COMPARTMENTED AEROSPACE DISCLOSURE';
+      } else if (uniqueSubjects.includes('BUSINESS & FINANCE') && uniqueSubjects.includes('HEALTH & SCIENCE')) {
+        title = 'INSTITUTIONAL PARADIGM PROTECTION & CAPITAL ALLOCATION ASYMMETRY';
+      } else if (uniqueSubjects.includes('HISTORY & ARCHAEOLOGY') && uniqueSubjects.includes('WORLD & ARCHIVES')) {
+        title = 'SUBTERRANEAN INFRASTRUCTURE & ARCHIVAL ACCESS RESTRICTIONS';
+      } else if (uniqueSubjects.includes('HISTORY & ARCHAEOLOGY') && uniqueSubjects.includes('EARTH & ENVIRONMENT')) {
+        title = 'DROWNED CONTINENTAL SHELVES & GLOBAL STRATIGRAPHIC DISCONTINUITY';
+      } else if (uniqueSubjects.includes('HISTORY & ARCHAEOLOGY')) {
+        title = 'SYSTEMIC REVISION OF LEGACY HISTORICAL & ANTHROPOLOGICAL BASELINES';
+      }
+
+      document.getElementById('synthesisTitle').textContent = title;
+
+      const nodeSummaries = pinnedItems.map((item, idx) =>
+        `<p><span class="font-mono text-xs text-amber-400 font-bold">[NODE 0${idx + 1} — ${item.subject} // ${item.region}]:</span> ${item.altHypothesis} <span class="font-mono text-[11px] text-slate-500">(Primary Record: ${item.citationSource})</span></p>`
+      ).join('');
+
+      const synthesisConclusion = `
+        <p class="pt-2 border-t border-slate-800/80 text-slate-200">
+          <span class="font-mono text-xs text-rose-400 font-bold">[CROSS-DOMAIN SYNTHESIS]:</span>
+          Evaluating ${pinnedItems.length} documented filings across <span class="text-white font-semibold">${uniqueSubjects.join(', ')}</span> reveals parallel patterns of information asymmetry and timing clustering. While each primary citation offers a narrow sector-specific explanation, cross-referencing them concurrently highlights recurring friction between official institutional baselines and underlying physical or market data.
+        </p>
+      `;
+
+      document.getElementById('synthesisBody').innerHTML = nodeSummaries + synthesisConclusion;
+    }
+
+    function switchView(view) {
+      const feedView = document.getElementById('feedView');
+      const boardView = document.getElementById('boardView');
+      const filterSection = document.getElementById('filterSection');
+      const tabFeed = document.getElementById('tabFeed');
+      const tabBoard = document.getElementById('tabBoard');
+
+      if (view === 'feed') {
+        feedView.classList.remove('hidden');
+        filterSection.classList.remove('hidden');
+        boardView.classList.add('hidden');
+        tabFeed.classList.add('bg-amber-500', 'text-black');
+        tabFeed.classList.remove('text-slate-400');
+        tabBoard.classList.remove('bg-amber-500', 'text-black');
+        tabBoard.classList.add('text-slate-400');
+      } else {
+        feedView.classList.add('hidden');
+        filterSection.classList.add('hidden');
+        boardView.classList.remove('hidden');
+        tabBoard.classList.add('bg-amber-500', 'text-black');
+        tabBoard.classList.remove('text-slate-400');
+        tabFeed.classList.remove('bg-amber-500', 'text-black');
+        tabFeed.classList.add('text-slate-400');
+        renderBoard();
+      }
+    }
+
+    async function scanLiveWire() {
+      const scanIcon = document.getElementById('scanIcon');
+      scanIcon.classList.add('animate-spin');
+      showStatus('CHECKING DAILY AUTOMATED FEED & OPEN-SOURCE PEER-REVIEW WIRES...');
+
+      try {
+        await loadDossiers();
+        const rssUrl = encodeURIComponent('https://www.sciencedaily.com/rss/fossils_ruins/archaeology.xml');
+        const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`);
+        const data = await response.json();
+
+        if (data && data.status === 'ok' && data.items && data.items.length > 0) {
+          const item = data.items.find(i => !dossiers.some(d => d.headline === i.title)) || data.items[0];
+          const cleanDesc = item.description.replace(/<[^>]*>?/gm, '').slice(0, 220) + '...';
+
+          if (!dossiers.some(d => d.headline === item.title)) {
+            const liveEntry = {
+              id: 'osint-live-' + Date.now(),
+              date: 'LIVE WIRE // NOV 2026',
+              region: 'GLOBAL / ORBITAL',
+              location: 'OPEN-SOURCE PEER-REVIEW WIRE',
+              subject: 'HISTORY & ARCHAEOLOGY',
+              coincidenceLevel: 87,
+              breakdown: { deviation: 88, timing: 84, multiSource: 89, opacity: 87 },
+              evidenceGrade: 'Peer-Reviewed DOI',
+              citationSource: `ScienceDaily / Indexed Journal Wire (${item.pubDate || 'Nov 2026'})`,
+              sourceUrl: item.link || 'https://www.sciencedaily.com',
+              headline: item.title,
+              plainEnglish: cleanDesc,
+              publicRecord: cleanDesc,
+              altHypothesis: `Newly indexed field findings ("${item.title}") further challenge legacy chronological assumptions regarding early human technological capability and geographic distribution.`,
+              activeLens: 'public'
+            };
+
+            dossiers.unshift(liveEntry);
+            updateConvergenceGauge(91);
+            renderTicker();
+            renderDossiers();
+            showStatus('NEW OPEN-SOURCE VERIFIED DISPATCH INDEXED INTO FEED.');
+          } else {
+            injectArchiveRelay();
+          }
+        } else {
+          injectArchiveRelay();
+        }
+      } catch (err) {
+        injectArchiveRelay();
+      } finally {
+        scanIcon.classList.remove('animate-spin');
+      }
+    }
+
+    function injectArchiveRelay() {
+      const nextEntry = liveWireArchivePool.find(b => !dossiers.some(d => d.id === b.id));
+      if (nextEntry) {
+        dossiers.unshift(nextEntry);
+        updateConvergenceGauge(92);
+        renderTicker();
+        renderDossiers();
+        showStatus(`VERIFIED DISPATCH RETRIEVED [${nextEntry.region} // ${nextEntry.subject}].`);
+      } else {
+        renderTicker();
+        renderDossiers();
+        showStatus('ALL CURRENT OPEN-SOURCE FREQUENCY BANDS SYNCHRONIZED.');
+      }
+    }
+
+    function updateConvergenceGauge(val) {
+      const tier = getCoincidenceTier(val);
+      document.getElementById('convergenceBar').style.width = val + '%';
+      document.getElementById('convergenceScoreText').textContent = `${val}% // ${tier.label.toUpperCase()}`;
+    }
+
+    function showStatus(msg) {
+      const banner = document.getElementById('statusBanner');
+      document.getElementById('statusMessage').textContent = '// ' + msg;
+      banner.classList.remove('hidden');
+    }
+    function hideStatus() {
+      document.getElementById('statusBanner').classList.add('hidden');
+    }
+
+    function openFieldLogModal() {
+      document.getElementById('fieldLogModal').classList.remove('hidden');
+    }
+    function closeFieldLogModal() {
+      document.getElementById('fieldLogModal').classList.add('hidden');
+    }
+
+    function submitFieldLog(e) {
+      e.preventDefault();
+      const headline = document.getElementById('newHeadline').value.trim();
+      const plainEnglish = document.getElementById('newPlainEnglish').value.trim();
+      const region = document.getElementById('newRegion').value;
+      const subject = document.getElementById('newSubject').value;
+      const location = document.getElementById('newLocation').value.trim().toUpperCase();
+      const coincidenceLevel = parseInt(document.getElementById('newIndex').value, 10) || 84;
+      const evidenceGrade = document.getElementById('newEvidenceGrade').value;
+      const citationSource = document.getElementById('newCitationRef').value.trim();
+      const sourceUrl = document.getElementById('newSourceUrl').value.trim() || 'https://scholar.google.com';
+      const publicRecord = document.getElementById('newPublicRecord').value.trim();
+      const altHypothesis = document.getElementById('newAltHypothesis').value.trim();
+
+      const customEntry = {
+        id: 'osint-user-' + Date.now(),
+        date: 'NOV 25, 2026 // FIELD LOG',
+        region,
+        location,
+        subject,
+        coincidenceLevel,
+        breakdown: {
+          deviation: coincidenceLevel,
+          timing: Math.min(99, coincidenceLevel + 2),
+          multiSource: Math.max(40, coincidenceLevel - 4),
+          opacity: coincidenceLevel
+        },
+        evidenceGrade,
+        citationSource,
+        sourceUrl,
+        headline,
+        plainEnglish,
+        publicRecord,
+        altHypothesis,
+        activeLens: 'public'
+      };
+
+      try {
+        const existingSaved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        existingSaved.unshift(customEntry);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(existingSaved));
+      } catch (err) {}
+
+      dossiers.unshift(customEntry);
+      e.target.reset();
+      closeFieldLogModal();
+      renderTicker();
+      renderDossiers();
+      showStatus(`FIELD LEAD COMMITTED TO ARCHIVE [${region} // ${subject}].`);
+    }
+
+    function copySynthesis() {
+      const code = document.getElementById('caseCodeLabel').textContent;
+      const title = document.getElementById('synthesisTitle').textContent;
+      const body = document.getElementById('synthesisBody').innerText;
+      const text = `${code}\n${title}\n\n${body}\n\n[Compiled via SOMETHING FISHY // Global OSINT Monitor]`;
+
+      const tempInput = document.createElement('textarea');
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      const btn = document.getElementById('copySynthesisBtn');
+      btn.textContent = 'COPIED ✓';
+      setTimeout(() => { btn.textContent = 'COPY ASSESSMENT'; }, 2000);
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
