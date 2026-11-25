@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
@@ -12,6 +13,14 @@ RSS_FEEDS = [
     ("HISTORY & ARCHAEOLOGY", "GLOBAL / ORBITAL", "https://www.sciencedaily.com/rss/fossils_ruins/archaeology.xml"),
     ("SPORTS", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/sport/rss.xml"),
     ("AEROSPACE & TECH", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/news/technology/rss.xml"),
+]
+
+# Active Gemini models tried in priority order so future model deprecations never break the bot
+GEMINI_MODELS = [
+    "gemini-3-flash-preview",
+    "gemini-2.5-flash-latest",
+    "gemini-flash-latest",
+    "gemini-2.5-pro",
 ]
 
 def fetch_headlines(limit_per_feed=3):
@@ -71,15 +80,31 @@ HEADLINES:
 {json.dumps(headlines, indent=2)}
 """
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
     payload = json.dumps({
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"temperature": 0.4, "responseMimeType": "application/json"}
     }).encode("utf-8")
 
-    req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
-    with urllib.request.urlopen(req, timeout=45) as resp:
-        result = json.loads(resp.read().decode("utf-8"))
+    result = None
+    last_error = None
+    for model in GEMINI_MODELS:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+        req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
+        try:
+            with urllib.request.urlopen(req, timeout=45) as resp:
+                result = json.loads(resp.read().decode("utf-8"))
+            print(f"Connected using model: {model}")
+            break
+        except urllib.error.HTTPError as e:
+            err_body = e.read().decode("utf-8", errors="ignore")
+            print(f"Model {model} returned HTTP {e.code}: {err_body}")
+            last_error = e
+            if e.code == 404:
+                continue
+            raise
+
+    if result is None:
+        raise last_error or RuntimeError("All Gemini models returned 404.")
 
     raw_text = result["candidates"][0]["content"]["parts"][0]["text"]
     items = json.loads(raw_text)
