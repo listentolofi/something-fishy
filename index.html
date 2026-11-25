@@ -39,7 +39,7 @@
     .ticker-track {
       display: inline-flex;
       white-space: nowrap;
-      animation: tickerScroll 125s linear infinite;
+      animation: tickerScroll 320s linear infinite;
     }
     .ticker-track:hover {
       animation-play-state: paused;
@@ -130,10 +130,10 @@
           <div class="flex items-center bg-obsidian border border-slate-800 rounded-xl p-1">
             <span class="text-slate-500 px-2 text-[10px]">MASTER LENS:</span>
             <button id="masterPublicBtn" onclick="setAllLenses('public')" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold transition cursor-pointer">
-              PUBLIC RECORD
+              THE PRESS RELEASE
             </button>
             <button id="masterAltBtn" onclick="setAllLenses('alt')" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-rose-400 transition cursor-pointer">
-              ALT HYPOTHESIS
+              WHY IT'S FISHY?
             </button>
           </div>
         </div>
@@ -242,12 +242,12 @@
     </div>
   </main>
 
-  <!-- MODAL: COINCIDENCE LEVEL SCORE BREAKDOWN -->
+  <!-- MODAL: WHY THIS SCORED SO HIGH (FISHINESS BREAKDOWN) -->
   <div id="breakdownModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onclick="if(event.target === this) closeBreakdownModal()">
     <div class="bg-dossier border border-amber-500/40 rounded-2xl max-w-md w-full p-6 shadow-2xl">
       <div class="flex items-start justify-between gap-3 mb-4">
         <div>
-          <span class="font-mono text-[10px] text-amber-400 uppercase tracking-widest">// COINCIDENCE METRIC AUDIT //</span>
+          <span class="font-mono text-[10px] text-amber-400 uppercase tracking-widest">// WHY THIS SCORED SO HIGH //</span>
           <h3 id="bdTitle" class="font-mono text-sm sm:text-base font-bold text-white mt-1 leading-snug"></h3>
         </div>
         <button onclick="closeBreakdownModal()" class="text-slate-400 hover:text-white font-mono text-lg cursor-pointer">✕</button>
@@ -255,7 +255,7 @@
 
       <div class="bg-obsidian border border-slate-800 rounded-xl p-4 mb-4 flex items-center justify-between">
         <div>
-          <span class="font-mono text-[10px] text-slate-500 block">COMPOSITE COINCIDENCE LEVEL</span>
+          <span class="font-mono text-[10px] text-slate-500 block">OVERALL FISHINESS</span>
           <span id="bdScore" class="font-mono text-2xl font-extrabold text-amber-400"></span>
         </div>
         <span id="bdTierBadge" class="font-mono text-[11px] font-bold px-3 py-1 rounded-lg border"></span>
@@ -266,7 +266,7 @@
       </div>
 
       <div class="mt-5 pt-3 border-t border-slate-800/80 flex justify-between items-center font-mono text-[10px] text-slate-500">
-        <span>WEIGHTED MULTI-VECTOR SCORING</span>
+        <span>HOW WE SCORE EVERY STORY</span>
         <button onclick="closeBreakdownModal()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 cursor-pointer">CLOSE</button>
       </div>
     </div>
@@ -286,7 +286,7 @@
             class="w-full bg-obsidian border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-amber-500 focus:outline-none" />
         </div>
         <div>
-          <label class="block font-mono text-xs text-amber-400 mb-1">IN PLAIN ENGLISH (1-2 SENTENCE HOOK)</label>
+          <label class="block font-mono text-xs text-amber-400 mb-1">IN PLAIN ENGLISH (1-2 SENTENCE SUMMARY)</label>
           <input type="text" id="newPlainEnglish" required placeholder="e.g., Big banks quietly bought physical gold while crashing the paper price for everyday investors."
             class="w-full bg-obsidian border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-amber-500 focus:outline-none" />
         </div>
@@ -350,13 +350,13 @@
             class="w-full bg-obsidian border border-slate-700 rounded-xl px-3.5 py-2 text-xs font-mono text-white focus:border-amber-500 focus:outline-none" />
         </div>
         <div>
-          <label class="block font-mono text-xs text-emerald-400 mb-1">PUBLIC RECORD (VERIFIED CITATIONS)</label>
+          <label class="block font-mono text-xs text-emerald-400 mb-1">THE PRESS RELEASE (VERIFIED CITATIONS)</label>
           <textarea id="newPublicRecord" rows="2" required placeholder="Documented institutional statement, market print, or peer-reviewed baseline..."
             class="w-full bg-obsidian border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:border-emerald-500 focus:outline-none"></textarea>
         </div>
         <div>
-          <label class="block font-mono text-xs text-rose-400 mb-1">ALTERNATIVE HYPOTHESIS (UNVERIFIED ANGLES)</label>
-          <textarea id="newAltHypothesis" rows="2" required placeholder="Timing anomaly, institutional gatekeeping, or suppressed correlation..."
+          <label class="block font-mono text-xs text-rose-400 mb-1">WHY IT'S FISHY? (UNVERIFIED ANGLE / MOTIVE)</label>
+          <textarea id="newAltHypothesis" rows="2" required placeholder="Timing anomaly, institutional gatekeeping, or who really profits..."
             class="w-full bg-obsidian border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:border-rose-500 focus:outline-none"></textarea>
         </div>
         <div class="flex justify-end gap-3 pt-2">
@@ -388,7 +388,7 @@
         headline: 'Silver Plunges 5% Below $41/oz on Paper Futures Even as Central Banks Hoard Physical Bullion',
         plainEnglish: 'Big financial institutions are dumping "paper" silver contracts to drive prices down, even though real-world mine supply is shrinking and governments are quietly buying up actual physical gold bars.',
         publicRecord: 'Spot silver plunged 5% below $41/oz (down ~60% from earlier 2026 record highs) and gold dropped below $3,562/oz ahead of US inflation data as NY Fed President John Williams cited tariffs and AI capex inflation pressures, while World Gold Council & mining supply reports show mined silver down 0.5% to 834M oz and sovereign central banks continuing net gold accumulation.',
-        altHypothesis: 'Coordinated paper-market suppression via COMEX derivatives to shake retail holders out of physical bullion before sovereign currency restructuring.',
+        altHypothesis: 'Big banks use fake "paper" contracts to scare everyday investors into selling cheap—so central banks can scoop up the real physical bars right before currency rules change.',
         activeLens: 'public'
       },
       {
@@ -405,7 +405,7 @@
         headline: 'AI Chipmakers Invest Billions Into the Same Cloud Startups Buying Their GPUs Back',
         plainEnglish: 'Tech giants like NVIDIA invest billions into AI startups, and those startups immediately spend that exact cash buying NVIDIA chips—making demand look way bigger than it really is.',
         publicRecord: 'SEC filings and corporate disclosures confirm circular vendor-financing arrangements where leading AI chipmakers and hyperscalers take equity stakes in GPU cloud startups (such as CoreWeave and sovereign AI funds) that simultaneously commit billions in hardware purchase orders back to the investors, alongside U.S. Commerce Department probes into restricted chip smuggling via third-party shell hubs.',
-        altHypothesis: 'Circular revenue engineering is inflating the AI hardware bubble to sustain trillion-dollar valuations while real-world enterprise AI software profits lag far behind.',
+        altHypothesis: 'Wall Street is recycling the same money in a closed loop to fake a booming AI gold rush—keeping stock prices sky-high before insiders cash out on everyday retirement funds.',
         activeLens: 'public'
       },
       {
@@ -422,7 +422,7 @@
         headline: 'G20 Factory Spending Hits Pandemic Lows While Major Banks Quietly Log $84.8B in Quarterly Profit',
         plainEnglish: 'Investment in real factories and jobs across the world\'s 20 biggest economies just dropped to lockdown-era lows, yet mega-banks made nearly $85 billion in a single quarter just from trading and interest.',
         publicRecord: 'Joint OECD and UNCTAD Global Investment Trends Monitor reports G20 manufacturing capex commitments fell to 2020 pandemic-era troughs even as major US banks posted a 7% Q3 profit jump to $84.8B.',
-        altHypothesis: 'Capital is deliberately being starved from real-world physical production and funneled into sovereign debt monetization and algorithmic liquidity loops.',
+        altHypothesis: 'The financial system now makes more money trading government debt than building real things—meaning fewer jobs and higher prices for regular workers while banks post record profits.',
         activeLens: 'public'
       },
       {
@@ -439,7 +439,7 @@
         headline: 'Federal Indictments Expose Insider NBA Prop-Bet Ring Where Players Faked Injuries on Cue',
         plainEnglish: 'Federal prosecutors proved gamblers were tipped off before games when certain NBA players would fake an injury and leave early—so bettors could cash in on bets that the players would score low.',
         publicRecord: 'U.S. Department of Justice indictments in the Eastern District of New York and NBA league investigations documented conspirators placing massive "under" player-prop bets using confidential pre-game injury tips, including NBA player Jontay Porter exiting games early after claiming illness/injury to trigger payouts.',
-        altHypothesis: 'Pro-level player-prop manipulation is not isolated to a few role players—sportsbook syndicate leaks and selective league enforcement shield marquee playoff stars.',
+        altHypothesis: 'Leagues only sacrifice low-level bench players as scapegoats to protect their multi-billion-dollar sportsbook partnerships—while star players and refs never face the same public audit.',
         activeLens: 'public'
       },
       {
@@ -456,7 +456,7 @@
         headline: 'Premier League Audit Admits Dozens of VAR Errors After Referees Refuse Live Mic Broadcasts',
         plainEnglish: 'Official Premier League audits confirmed dozens of wrong video-review calls that decided major matches, yet football officials still block fans from hearing referee audio live during games.',
         publicRecord: 'Premier League Key Match Incidents (KMI) panel audits confirmed over 30 VAR officiating errors in a single season—including high-profile disallowed valid goals due to miscommunication—while IFAB and PGMOL continue prohibiting live in-stadium broadcast of VAR audio.',
-        altHypothesis: 'Keeping VAR booth conversations private during live play protects narrative-driven title races and high-stakes broadcast ratings from real-time scrutiny.',
+        altHypothesis: 'Keeping replay booth mics muted during live play lets officials steer tight title races and keep global TV drama alive without fans hearing how the calls are actually made.',
         activeLens: 'public'
       },
       {
@@ -473,7 +473,7 @@
         headline: 'NBI & GAB Crackdowns Uncover Point-Shaving Syndicates Targeting Regional Philippine Basketball',
         plainEnglish: 'Philippine investigators and sports regulators have repeatedly busted point-shaving rings paying players and officials to miss late free throws or shave margins so offshore bettors win.',
         publicRecord: 'The Games and Amusements Board (GAB), National Bureau of Investigation (NBI), and regional leagues (MPBL/PBA) have filed multiple game-fixing and point-shaving charges against players and syndicate runners who manipulated second-half point spreads for illegal betting rings.',
-        altHypothesis: 'Offshore Asian betting syndicates wield deeper financial leverage over regional pro and collegiate rosters than occasional low-level arrests suggest.',
+        altHypothesis: 'Offshore betting syndicates quietly control game margins in underpaid regional leagues—meaning fans buying tickets are watching scripted point spreads instead of real competition.',
         activeLens: 'public'
       },
       {
@@ -490,7 +490,7 @@
         headline: 'Thirty Studies Retracted: Former NIH Neuroscientist Flagged for Decades of Altered Lab Data',
         plainEnglish: 'A top government brain researcher had 30 medical studies pulled from science journals after sleuths proved the lab images were edited—meaning billions in drug research may have chased fake results.',
         publicRecord: 'Retraction Watch and CASRAI confirmed a 30th paper retraction for a former National Institutes of Health neuroscientist across multiple peer-reviewed journals following multi-year investigations into altered Western blot images and statistical anomalies.',
-        altHypothesis: 'Institutional gatekeepers protected foundational neuro-pharmacology paradigms for decades to shield multi-billion-dollar drug pipelines built on flawed baseline studies.',
+        altHypothesis: 'Billions in taxpayer grants and blockbuster brain drugs were built on doctored lab photos—and officials looked away for decades because admitting it would collapse entire pharma pipelines.',
         activeLens: 'public'
       },
       {
@@ -507,7 +507,7 @@
         headline: 'Long COVID Drug Trial Quietly Retracted and Republished With Altered Dosage Figures',
         plainEnglish: 'A clinical trial testing a cheap, off-patent pill for Long COVID was pulled and quietly re-uploaded with changed dosage numbers after independent reviewers caught mismatched figures.',
         publicRecord: 'Retraction Watch documented a clinical trial on fluvoxamine for Long COVID retracted and republished after independent sleuths flagged discrepancies between the trial protocol dosage (100mg BID) and cited comparator studies (100mg daily), joining nearly 800 retracted pandemic-era papers.',
-        altHypothesis: 'Selective editorial gatekeeping fast-tracks patentable therapeutics while burying off-patent generic protocols until patent windows close.',
+        altHypothesis: 'Cheap generic pills make zero profit for drug companies—so sloppy or skewed trials get rushed out to bury off-patent cures until expensive new prescriptions hit the market.',
         activeLens: 'public'
       },
       {
@@ -524,7 +524,7 @@
         headline: 'Major Science Publishers Launch Ethics Probe Into Statistically Impossible Biometric Studies',
         plainEnglish: 'Two giant medical publishers are investigating published blood-test studies whose results were so mathematically "perfect" that independent statisticians say they couldn\'t happen in real life.',
         publicRecord: 'Two major academic publishers opened formal ethics and peer-review investigations into published biometric blood-typing studies after independent statistical reviewers flagged impossible accuracy distributions.',
-        altHypothesis: 'Automated peer-review mills are flooding medical databases to obscure legitimate non-invasive diagnostic biomarkers.',
+        altHypothesis: 'Pay-to-publish paper mills are flooding medical journals with fake "breakthroughs" to attract biotech investors—making it nearly impossible for doctors to tell real science from fraud.',
         activeLens: 'public'
       },
       {
@@ -541,7 +541,7 @@
         headline: 'Pentagon Batch 8 Logs Mach 2.5 Radar Track at 70,000 Feet Alongside Exotic-Material Vault Blueprints',
         plainEnglish: 'Newly released Pentagon files confirm air-traffic radar tracked an object flying 2.5 times the speed of sound at 70,000 feet—plus blueprints for a government vault meant to store "exotic materials."',
         publicRecord: 'U.S. Department of War Release Article 4655441 published 40 declassified files and 3 infrared videos, including a 2023 civil air-surveillance radar report logging 8 detections over 84 seconds at 55,000–70,000 ft (~Mach 2.5) and AAWSAP contractor designs for an unbuilt exotic-material storage facility.',
-        altHypothesis: 'Controlled drip-disclosure conditioning the public while keeping recovered non-human craft inside unacknowledged Special Access Programs.',
+        altHypothesis: 'You don\'t draw up architectural blueprints for an "exotic material" vault unless you already have something to put inside it—meaning breakthrough propulsion tech is being kept locked away from the public.',
         activeLens: 'public'
       },
       {
@@ -558,7 +558,7 @@
         headline: 'Nationwide FAA Ground Stop Hits the Exact Hour a Glowing Plume Blankets the Sky Over Mexico',
         plainEnglish: 'Every commercial flight in the U.S. was suddenly grounded for four hours on the exact night a massive glowing cone lit up the sky over Mexico—officially blamed on a phone switch glitch and a SpaceX launch.',
         publicRecord: 'FAA issued a 4-hour national ground stop (10,000+ delays) due to center-to-center telecom switch overloads on the exact evening SpaceX Starship Flight 15 launched from Starbase, TX, producing a high-altitude dusk exhaust jellyfish plume across Mexico.',
-        altHypothesis: 'The telecom failure was an electronic warfare/sensor blackout triggered by an unannounced orbital interception masquerading behind a scheduled launch window.',
+        altHypothesis: 'Grounding every civilian plane in America at the exact moment of a high-altitude sky anomaly keeps commercial pilots from seeing—and recording—classified orbital tests.',
         activeLens: 'public'
       },
       {
@@ -575,7 +575,7 @@
         headline: 'Deep Radar & Muon Scans Uncover Multi-Tier Subterranean Chambers Under Istanbul and Giza',
         plainEnglish: 'Underground radar and cosmic-ray scans in Turkey and Egypt keep finding hidden multi-level tunnels and sealed chambers beneath ancient landmarks that officials still won\'t excavate.',
         publicRecord: 'Municipal archaeological surveys in Istanbul documented multi-tier Byzantine-Ottoman cisterns and Edirnekapı aqueduct conduits beneath Nuruosmaniye, while ground-penetrating radar and muon tomography studies at Giza continue mapping known subterranean shafts and void anomalies.',
-        altHypothesis: 'Interconnected pre-Bronze Age subterranean infrastructure engineered for acoustic/geothermal energy harvesting rather than simple water storage.',
+        altHypothesis: 'Officials keep stalling digs under Giza and Istanbul because opening those sealed chambers could prove an advanced civilization existed thousands of years before official history begins.',
         activeLens: 'public'
       },
       {
@@ -592,7 +592,7 @@
         headline: '200,000-Year Timeline Error: Chinese Cave Fossils Overturn Asian Homo Erectus Extinction Date',
         plainEnglish: 'Ancient teeth found in Southern China prove an early human species survived 200,000 years longer than history books claimed—meaning they lived alongside modern humans.',
         publicRecord: 'Two Nature studies (Westaway et al., DOI: 10.1038/s41586-026-11155-6; Liao et al., DOI: 10.1038/s41586-026-11271-3) dated 8 fossilized teeth in Naxian and Baxian caves to ~250,000–300,000 years ago, overturning the textbook extinction timeline for Asian Homo erectus.',
-        altHypothesis: 'Deep-jungle refugia in Southeast Asia and Southern China harbored overlapping hominin civilizations far closer to recorded human memory than mainstream anthropology admits.',
+        altHypothesis: 'If other intelligent human species survived right alongside us far more recently than textbooks admit, ancient "myths" of non-human tribes and giants were likely real historical encounters.',
         activeLens: 'public'
       },
       {
@@ -609,7 +609,7 @@
         headline: 'Over One Billion Years of Continental Rock Record Vanished Simultaneously Across Three Continents',
         plainEnglish: 'Over a billion years of Earth\'s rock layers are completely missing across North America, Africa, and Australia at the exact same spot—as if something scraped the continents clean.',
         publicRecord: 'Zircon thermochronology published in PNAS confirms 1.2 billion years of eroded Precambrian rock missing globally between 1.7-billion-year-old basement granite and 550-million-year-old Cambrian sandstone.',
-        altHypothesis: 'Evidence of a global crustal displacement or planetary-scale cataclysm stripped continents bare far more violently than gradual glacial erosion explains.',
+        altHypothesis: 'Earth isn\'t as stable as gradual-change geology claims—something violent wiped entire continents clean in the past, meaning catastrophic planetary resets happen far faster than we prepare for.',
         activeLens: 'public'
       },
       {
@@ -626,7 +626,7 @@
         headline: 'Vatican & European Vaults Halt Public Digitization of Pre-1600 Antarctic-Fringe Sea Charts',
         plainEnglish: 'European royal and Vatican libraries paused public high-res scans of 500-year-old sea maps that appear to show coastlines near Antarctica centuries before explorers officially found it.',
         publicRecord: 'Conservation directives restrict physical handling and high-resolution public release of fragile 14th–16th century Mediterranean and Antarctic-fringe portolan charts citing pigment degradation.',
-        altHypothesis: 'Early portolan maps preserve ice-free coastal topography copied from lost antediluvian navigation libraries.',
+        altHypothesis: 'Those 500-year-old maps show Antarctica\'s coastline without ice—meaning whoever mapped the globe first did it thousands of years ago, and vaults are hiding the proof to protect old history.',
         activeLens: 'public'
       }
     ];
@@ -876,7 +876,7 @@
               </h2>
 
               <div class="bg-amber-500/10 border-l-2 border-amber-400 rounded-r-xl px-3 py-2.5 mb-3.5">
-                <span class="font-mono text-[10px] font-bold text-amber-400 tracking-wider block mb-0.5">IN PLAIN ENGLISH // THE HOOK</span>
+                <span class="font-mono text-[10px] font-bold text-amber-400 tracking-wider block mb-0.5">IN PLAIN ENGLISH</span>
                 <p class="text-xs text-slate-200 leading-relaxed">
                   ${d.plainEnglish || d.publicRecord}
                 </p>
@@ -887,13 +887,13 @@
                   class="py-1.5 px-2 rounded-lg font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
                     !isAlt ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' : 'text-slate-500 hover:text-slate-300'
                   }">
-                  <span>●</span> PUBLIC RECORD (VERIFIED)
+                  <span>●</span> THE PRESS RELEASE
                 </button>
                 <button onclick="setLens('${d.id}', 'alt')"
                   class="py-1.5 px-2 rounded-lg font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
                     isAlt ? 'bg-rose-500/20 text-rose-400 border border-rose-500/40' : 'text-slate-500 hover:text-slate-300'
                   }">
-                  <span>◈</span> ALT HYPOTHESIS (UNVERIFIED)
+                  <span>◈</span> WHY IT'S FISHY?
                 </button>
               </div>
 
@@ -923,11 +923,11 @@
             </div>
 
             <div class="pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
-              <button onclick="openBreakdownModal('${d.id}')" title="Click to audit Coincidence Level breakdown"
+              <button onclick="openBreakdownModal('${d.id}')" title="Click to see why this story scored so high"
                 class="text-left group cursor-pointer rounded-xl px-2.5 py-1.5 -ml-2.5 hover:bg-slate-800/70 transition">
                 <div class="flex items-center gap-1.5 text-[10px] text-slate-500 group-hover:text-slate-300">
                   <span>COINCIDENCE LEVEL</span>
-                  <span class="text-amber-400">[AUDIT ⓘ]</span>
+                  <span class="text-amber-400">[WHY? ⓘ]</span>
                 </div>
                 <div class="flex flex-wrap items-center gap-2 mt-0.5">
                   <span class="text-white font-extrabold text-sm">${d.coincidenceLevel}%</span>
@@ -998,23 +998,23 @@
 
       const criteria = [
         {
-          name: 'CONSENSUS DEVIATION',
-          desc: 'Degree of friction between primary evidence and established institutional narrative.',
+          name: 'DOESN\'T MATCH THE PRESS RELEASE',
+          desc: 'How badly the hard evidence clashes with the official story.',
           score: bd.deviation
         },
         {
-          name: 'TIMING & COINCIDENCE CLUSTERING',
-          desc: 'Synchronization with unrelated market shocks, policy drops, or infrastructure outages.',
+          name: 'SUSPICIOUS TIMING',
+          desc: 'Happened right alongside another major shock, outage, or policy drop.',
           score: bd.timing
         },
         {
-          name: 'MULTI-SOURCE SIGNAL',
-          desc: 'Corroboration across independent datasets, filings, sensor logs, or peer-reviewed audits.',
+          name: 'MULTIPLE RECEIPTS',
+          desc: 'Backed up by separate filings, market data, or independent records—not a "trust me bro" post.',
           score: bd.multiSource
         },
         {
-          name: 'INFORMATION OPACITY',
-          desc: 'Extent of archival restrictions, redactions, or delayed institutional disclosure.',
+          name: 'HIDDEN BEHIND CLOSED DOORS',
+          desc: 'Key details were sealed, redacted, or kept away from the public.',
           score: bd.opacity
         }
       ];
