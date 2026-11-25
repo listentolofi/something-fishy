@@ -1,7 +1,6 @@
 import json
 import os
 import re
-import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
@@ -15,7 +14,6 @@ RSS_FEEDS = [
     ("AEROSPACE & TECH", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/news/technology/rss.xml"),
 ]
 
-# Active Gemini models tried in priority order so future model deprecations never break the bot
 GEMINI_MODELS = [
     "gemini-3-flash-preview",
     "gemini-2.5-flash-latest",
@@ -74,7 +72,7 @@ Return ONLY a valid JSON array (no markdown fences) where each object has:
 - "headline": punchy, non-clickbait investigative headline
 - "plainEnglish": 1-2 simple everyday sentences explaining why a regular person should care (zero jargon)
 - "publicRecord": 2-3 factual sentences summarizing the verified mainstream report
-- "altHypothesis": 1-2 sentences presenting the deeper institutional, financial, or suppressed-pattern angle
+- "altHypothesis": 1-2 punchy, everyday sentences directly answering the unspoken question "So what?" (do NOT include the literal words "So what?")—spell out the real-world motive, who profits, or what is being covered up so the reader thinks "yeah, that's really fishy" (zero academic jargon)
 
 HEADLINES:
 {json.dumps(headlines, indent=2)}
@@ -82,7 +80,7 @@ HEADLINES:
 
     payload = json.dumps({
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"temperature": 0.4, "responseMimeType": "application/json"}
+        "generationConfig": {"temperature": 0.5, "responseMimeType": "application/json"}
     }).encode("utf-8")
 
     result = None
