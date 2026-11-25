@@ -1,0 +1,173 @@
+{
+  "updatedAt": "Nov 25, 2026 14:15 UTC",
+  "items": [
+    {
+      "id": "sf-2026-001",
+      "date": "NOV 25, 2026",
+      "region": "GLOBAL / ORBITAL",
+      "location": "L2 LAGRANGE POINT",
+      "subject": "AEROSPACE & TECH",
+      "coincidenceLevel": 94,
+      "breakdown": {
+        "deviation": 28,
+        "timing": 22,
+        "multiSource": 24,
+        "opacity": 20
+      },
+      "evidenceGrade": "Telemetry / Sensor Log",
+      "citationSource": "ScienceDaily NOV 25, 2026",
+      "sourceUrl": "https://www.sciencedaily.com/releases/2026/11/261124055852.htm",
+      "headline": "Dark Matter Hunter Euclid Detects Anomalous Comet in Deep Space",
+      "plainEnglish": "A telescope built to find invisible dark matter accidentally spotted a strange, icy comet over 800 million miles away. This object has a weird path that takes thousands of years to complete, showing up right when we were looking for something else entirely.",
+      "publicRecord": "The ESA’s Euclid space telescope discovered its first previously unknown comet despite being optimized for distant galaxy observation. The object is located 1.3 billion kilometers from Earth and follows an unconventional orbit.",
+      "altHypothesis": "The 'accidental' discovery of a high-albedo object during a dark matter survey suggests calibration shifts intended to monitor incoming Oort cloud debris rather than deep-space expansion."
+    },
+    {
+      "id": "sf-2026-002",
+      "date": "NOV 25, 2026",
+      "region": "EUROPE",
+      "location": "GENEVA",
+      "subject": "HEALTH & SCIENCE",
+      "coincidenceLevel": 91,
+      "breakdown": {
+        "deviation": 25,
+        "timing": 25,
+        "multiSource": 21,
+        "opacity": 20
+      },
+      "evidenceGrade": "Peer-Reviewed DOI",
+      "citationSource": "ScienceDaily NOV 25, 2026",
+      "sourceUrl": "https://www.sciencedaily.com/releases/2026/11/261124055849.htm",
+      "headline": "Physicists Achieve Near-Zero Antimatter Trap to Probe Universal Origin",
+      "plainEnglish": "Scientists have successfully frozen 'antimatter'—the mirror version of normal matter—to almost the coldest temperature possible. This allows them to study why the universe is made of stuff we can touch instead of disappearing in a flash of light.",
+      "publicRecord": "Researchers trapped positrons in a wall-free environment and cooled them to near absolute zero. This breakthrough enables the most precise comparison between matter and antimatter ever conducted.",
+      "altHypothesis": "The ability to stabilize antimatter at these temperatures is a prerequisite for high-density energy storage systems currently being explored by defense contractors for orbital propulsion."
+    },
+    {
+      "id": "sf-2026-003",
+      "date": "NOV 25, 2026",
+      "region": "EUROPE",
+      "location": "SILCHESTER",
+      "subject": "HISTORY & ARCHAEOLOGY",
+      "coincidenceLevel": 87,
+      "breakdown": {
+        "deviation": 22,
+        "timing": 20,
+        "multiSource": 25,
+        "opacity": 20
+      },
+      "evidenceGrade": "Peer-Reviewed DOI",
+      "citationSource": "ScienceDaily NOV 25, 2026",
+      "sourceUrl": "https://www.sciencedaily.com/releases/2026/11/261122060338.htm",
+      "headline": "Iron Age King Verica Identified as Female in Historical Paradigm Shift",
+      "plainEnglish": "A famous ancient king who helped cause the Roman invasion of Britain was actually a woman. This discovery changes everything we thought we knew about who held power in the ancient world.",
+      "publicRecord": "Archaeological evidence suggests that Verica, the ruler whose exile triggered Rome's AD 43 invasion, was female. This challenges centuries of patriarchal historical assumptions regarding British tribal leadership.",
+      "altHypothesis": "The timing of this 're-identification' aligns with institutional efforts to modernize historical narratives, potentially overlooking the nuances of dynastic naming conventions in favor of social revisionism."
+    },
+    {
+      "id": "sf-2026-004",
+      "date": "NOV 25, 2026",
+      "region": "AMERICAS",
+      "location": "NEW YORK",
+      "subject": "AEROSPACE & TECH",
+      "coincidenceLevel": 82,
+      "breakdown": {
+        "deviation": 18,
+        "timing": 24,
+        "multiSource": 20,
+        "opacity": 20
+      },
+      "evidenceGrade": "Regulatory / Market Data",
+      "citationSource": "BBC NOV 25, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/news/articles/cmy49ngydqzpo?at_medium=RSS&at_campaign=rss",
+      "headline": "Huawei Convicted of Trade Secret Theft in Landmark US Verdict",
+      "plainEnglish": "A court in New York found the tech giant Huawei guilty of stealing American business secrets. While they were cleared of some charges, the ruling confirms they illegally took technology from US companies.",
+      "publicRecord": "Following a months-long trial in New York, Huawei was found guilty of stealing US trade secrets but was acquitted of racketeering charges. The case centered on long-standing allegations of intellectual property theft.",
+      "altHypothesis": "The acquittal on racketeering suggests a judicial compromise to maintain diplomatic backchannels while still imposing the necessary legal barriers to Chinese infrastructure dominance."
+    },
+    {
+      "id": "sf-2026-005",
+      "date": "NOV 25, 2026",
+      "region": "EUROPE",
+      "location": "REDWOOD CITY",
+      "subject": "AEROSPACE & TECH",
+      "coincidenceLevel": 76,
+      "breakdown": {
+        "deviation": 15,
+        "timing": 21,
+        "multiSource": 20,
+        "opacity": 20
+      },
+      "evidenceGrade": "Regulatory / Market Data",
+      "citationSource": "BBC NOV 25, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/news/articles/c65y10j841jpo?at_medium=RSS&at_campaign=rss",
+      "headline": "Digital Resurrection: EA Integrates AI John Motson into FC 27",
+      "plainEnglish": "A famous sports commentator who passed away is being brought back as an AI voice in a video game. His family gave permission, but it raises big questions about using the voices of people who are no longer with us.",
+      "publicRecord": "Electronic Arts has added an AI-generated version of the late commentator John Motson to its FC 27 game. The project was completed with the consent of Motson’s widow and son.",
+      "altHypothesis": "This marks a pivot toward 'perpetual licensing' of human personas, where estates can monetize the digital likeness of the deceased indefinitely, effectively ending the era of new talent entry."
+    },
+    {
+      "id": "sf-2026-006",
+      "date": "NOV 25, 2026",
+      "region": "EUROPE",
+      "location": "LONDON",
+      "subject": "BUSINESS & FINANCE",
+      "coincidenceLevel": 89,
+      "breakdown": {
+        "deviation": 24,
+        "timing": 25,
+        "multiSource": 20,
+        "opacity": 20
+      },
+      "evidenceGrade": "Regulatory / Market Data",
+      "citationSource": "BBC NOV 25, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/news/articles/cm20qnq33e90o?at_medium=RSS&at_campaign=rss",
+      "headline": "Energy Price Cap Surge Triggers 26% Spike in Household Bills",
+      "plainEnglish": "Starting in January, the average family will have to pay hundreds of pounds more for heat and electricity. Prices are jumping because gas costs have suddenly gone up again.",
+      "publicRecord": "Regulator Ofgem is raising the energy price cap, leading to a projected 26% increase in bills. A typical household's annual cost is expected to rise from £1,723 to £2,166.",
+      "altHypothesis": "The synchronized rise in energy caps across multiple regions suggests a coordinated fiscal 'reset' to absorb excess liquidity by targeting essential household expenditures."
+    },
+    {
+      "id": "sf-2026-007",
+      "date": "NOV 25, 2026",
+      "region": "AMERICAS",
+      "location": "BALTIMORE",
+      "subject": "HEALTH & SCIENCE",
+      "coincidenceLevel": 79,
+      "breakdown": {
+        "deviation": 19,
+        "timing": 20,
+        "multiSource": 20,
+        "opacity": 20
+      },
+      "evidenceGrade": "Peer-Reviewed DOI",
+      "citationSource": "ScienceDaily NOV 25, 2026",
+      "sourceUrl": "https://www.sciencedaily.com/releases/2026/11/261124055854.htm",
+      "headline": "Common Anxiety Medications Linked to Accelerated Brain Decline",
+      "plainEnglish": "One in three older adults with memory issues are taking drugs for sleep or anxiety that might actually be making their brains worse. These common pills could be increasing the risk of hospital stays and early death.",
+      "publicRecord": "New research warns that nearly 33% of older adults with cognitive disorders are prescribed potentially harmful medications. These drugs are linked to worsened brain function and higher mortality rates.",
+      "altHypothesis": "The continued mass-prescription of known neuro-inhibitors suggests a systemic failure in geriatric care standards, prioritizing patient sedation over long-term cognitive health."
+    },
+    {
+      "id": "sf-2026-008",
+      "date": "NOV 25, 2026",
+      "region": "EUROPE",
+      "location": "LONDON",
+      "subject": "SPORTS",
+      "coincidenceLevel": 71,
+      "breakdown": {
+        "deviation": 15,
+        "timing": 16,
+        "multiSource": 20,
+        "opacity": 20
+      },
+      "evidenceGrade": "Regulatory / Market Data",
+      "citationSource": "BBC NOV 25, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/sport/football/articles/cxzd9ydqzylno?at_medium=RSS&at_campaign=rss",
+      "headline": "Raheem Sterling Receives Suspended Jail Sentence in Legal Fallout",
+      "plainEnglish": "One of England's most famous football stars has been given a prison sentence that he won't have to serve right now unless he breaks the law again. It is a major fall for a player who has been in the spotlight since he was 17.",
+      "publicRecord": "Former Premier League star Raheem Sterling has been handed a suspended prison sentence. This comes fourteen years after his high-profile debut as a teenage prodigy.",
+      "altHypothesis": "The sentencing of a top-tier cultural icon serves as a high-visibility deterrent, potentially signaling a new era of strict legal accountability for public figures previously considered 'untouchable'."
+    }
+  ]
+}
