@@ -1,17 +1,20 @@
 import json
 import os
 import re
+import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 
-# Free public news RSS feeds across your categories
+# Free public news RSS feeds across your updated Topics
 RSS_FEEDS = [
+    ("POLITICS", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/news/politics/rss.xml"),
+    ("POLITICS", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/news/world/rss.xml"),
     ("BUSINESS & FINANCE", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/news/business/rss.xml"),
     ("HEALTH & SCIENCE", "GLOBAL / ORBITAL", "https://www.sciencedaily.com/rss/all.xml"),
     ("HISTORY & ARCHAEOLOGY", "GLOBAL / ORBITAL", "https://www.sciencedaily.com/rss/fossils_ruins/archaeology.xml"),
     ("SPORTS", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/sport/rss.xml"),
-    ("AEROSPACE & TECH", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/news/technology/rss.xml"),
+    ("TECHNOLOGY", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/news/technology/rss.xml"),
 ]
 
 GEMINI_MODELS = [
@@ -20,6 +23,17 @@ GEMINI_MODELS = [
     "gemini-flash-latest",
     "gemini-2.5-pro",
 ]
+
+def extract_media_url(item):
+    # Safely extract publisher-provided RSS thumbnail/enclosure if present
+    for elem in item.iter():
+        tag = elem.tag.lower()
+        if tag.endswith("thumbnail") or tag.endswith("content") or tag.endswith("enclosure"):
+            url = elem.attrib.get("url", "").strip()
+            media_type = elem.attrib.get("type", "").lower()
+            if url and (media_type.startswith("image/") or re.search(r"\.(jpg|jpeg|png|webp)(\?.*)?$", url, re.I)):
+                return url
+    return None
 
 def fetch_headlines(limit_per_feed=3):
     collected = []
@@ -35,12 +49,14 @@ def fetch_headlines(limit_per_feed=3):
                 title = (item.findtext("title") or "").strip()
                 link = (item.findtext("link") or url).strip()
                 desc = re.sub(r"<[^>]+>", "", (item.findtext("description") or "")).strip()
+                media_url = extract_media_url(item)
                 if title:
                     collected.append({
                         "category": category,
                         "region": region,
                         "title": title,
                         "link": link,
+                        "mediaUrl": media_url,
                         "summary": desc[:300]
                     })
         except Exception as e:
@@ -56,23 +72,26 @@ def generate_fishy_dossiers(headlines):
 
     prompt = f"""
 You are the senior investigative editor for 'SOMETHING FISHY'.
-Review these real headlines from today ({today_str}) and select the 8 most intriguing, coincidental, or paradigm-challenging stories across Business & Finance, Sports, Health & Science, History & Archaeology, and Aerospace & Tech.
+Review these real headlines from today ({today_str}) and select the 8 most intriguing, coincidental, or paradigm-challenging stories across Politics, Business & Finance, Sports, Health & Science, History & Archaeology, and Technology.
 
 Return ONLY a valid JSON array (no markdown fences) where each object has:
 - "id": unique string like "auto-1"
 - "date": "{today_str}"
 - "region": one of ["ASIA-PACIFIC", "MIDDLE EAST & AFRICA", "EUROPE", "AMERICAS", "GLOBAL / ORBITAL"]
 - "location": uppercase city/sector string
-- "subject": one of ["BUSINESS & FINANCE", "SPORTS", "HEALTH & SCIENCE", "HISTORY & ARCHAEOLOGY", "AEROSPACE & TECH", "EARTH & ENVIRONMENT", "WORLD & ARCHIVES"]
+- "subject": one of ["POLITICS", "BUSINESS & FINANCE", "SPORTS", "HEALTH & SCIENCE", "HISTORY & ARCHAEOLOGY", "TECHNOLOGY", "EARTH & ENVIRONMENT", "WORLD & ARCHIVES"]
 - "coincidenceLevel": integer between 65 and 96
 - "breakdown": {{"deviation": int, "timing": int, "multiSource": int, "opacity": int}}
 - "evidenceGrade": one of ["Regulatory / Market Data", "Peer-Reviewed DOI", "Declassified Gov File", "Telemetry / Sensor Log"]
 - "citationSource": publisher or institution name + today's date
 - "sourceUrl": exact link from the input item
+- "mediaType": "image"
+- "mediaUrl": exact mediaUrl from input item if non-null, otherwise null
+- "mediaCredit": publisher attribution string if mediaUrl is present, otherwise null
 - "headline": punchy, non-clickbait investigative headline
 - "plainEnglish": 1-2 simple everyday sentences explaining why a regular person should care (zero jargon)
-- "publicRecord": 2-3 factual sentences summarizing the verified mainstream report
-- "altHypothesis": 1-2 punchy, everyday sentences directly answering the unspoken question "So what?" (do NOT include the literal words "So what?")—spell out the real-world motive, who profits, or what is being covered up so the reader thinks "yeah, that's really fishy" (zero academic jargon)
+- "publicRecord": 2-3 factual sentences summarizing the verified mainstream report (The Press Release)
+- "altHypothesis": 1-2 punchy sentences spelling out the real motive, who profits, or what clashes with the story (Why It's Fishy? — do NOT start with the literal words "So what?")
 
 HEADLINES:
 {json.dumps(headlines, indent=2)}
@@ -80,7 +99,7 @@ HEADLINES:
 
     payload = json.dumps({
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"temperature": 0.5, "responseMimeType": "application/json"}
+        "generationConfig": {"temperature": 0.4, "responseMimeType": "application/json"}
     }).encode("utf-8")
 
     result = None
