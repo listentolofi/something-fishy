@@ -1,6 +1,150 @@
 {
-  "updatedAt": "Nov 26, 2026 16:59 UTC",
+  "updatedAt": "Nov 26, 2026 20:48 UTC",
   "items": [
+    {
+      "id": "auto-83dc9966af-0",
+      "date": "NOV 26, 2026",
+      "region": "EUROPE",
+      "location": "SHETLAND",
+      "subject": "POLITICS",
+      "coincidenceLevel": 78,
+      "breakdown": {
+        "deviation": 25,
+        "timing": 15,
+        "multiSource": 18,
+        "opacity": 20
+      },
+      "evidenceGrade": "Regulatory / Market Data",
+      "citationSource": "BBC News NOV 26, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/news/articles/cw24ez32d1n4o?at_medium=RSS&at_campaign=rss",
+      "mediaType": "image",
+      "mediaUrl": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/60a5/live/584f1ed0-cfb0-11f1-9012-0172b9f73a72.jpg",
+      "mediaCredit": "BBC News",
+      "headline": "The Rosebank Rebellion: Internal Party Coup Over North Sea Drilling",
+      "plainEnglish": "Nearly 100 government officials are openly fighting their own leadership's plan to drill for oil in the North Sea. It shows a massive split in how the country wants to handle energy and the environment.",
+      "publicRecord": "Energy Secretary Miatta Fahnbulleh is facing a significant revolt from nearly 100 Labour MPs, including ministerial aides, regarding the approval of the Rosebank oil field. A final decision on the drilling project off the Shetland coast is expected within the coming weeks.",
+      "altHypothesis": "The sudden, coordinated scale of this 'rebellion' suggests a strategic internal power play to force a pivot toward specific green-tech subsidies that benefit a new donor class."
+    },
+    {
+      "id": "auto-4d1474fa23-1",
+      "date": "NOV 26, 2026",
+      "region": "AMERICAS",
+      "location": "WASHINGTON DC",
+      "subject": "BUSINESS & FINANCE",
+      "coincidenceLevel": 69,
+      "breakdown": {
+        "deviation": 10,
+        "timing": 22,
+        "multiSource": 25,
+        "opacity": 12
+      },
+      "evidenceGrade": "Regulatory / Market Data",
+      "citationSource": "BBC Business NOV 26, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/news/articles/c6r7g4e3yep1o?at_medium=RSS&at_campaign=rss",
+      "mediaType": "image",
+      "mediaUrl": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/a44e/live/be7b3450-e9af-11f1-859a-37130cd3a1d7.jpg",
+      "mediaCredit": "BBC News",
+      "headline": "Shadow Trade Routes: Why New Tariffs Are Failing to Bite",
+      "plainEnglish": "Experts say new taxes on imported goods aren't hurting as much as expected because countries have already found secret ways to move products around. The global economy has basically built a 'bypass' for political trade wars.",
+      "publicRecord": "Analysis indicates that recent tariff threats from the U.S. administration are less impactful than previous rounds. Global trade partners have successfully rerouted supply chains and are now positioning their economies to outlast the current political tenure.",
+      "altHypothesis": "The lack of market panic reveals that a 'dark' global supply chain is now fully operational, rendering traditional economic sanctions and tariffs obsolete."
+    },
+    {
+      "id": "auto-7a1bbd54cd-2",
+      "date": "NOV 26, 2026",
+      "region": "EUROPE",
+      "location": "LONDON",
+      "subject": "HEALTH & SCIENCE",
+      "coincidenceLevel": 85,
+      "breakdown": {
+        "deviation": 30,
+        "timing": 20,
+        "multiSource": 15,
+        "opacity": 20
+      },
+      "evidenceGrade": "Peer-Reviewed DOI",
+      "citationSource": "BBC Sport NOV 26, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/sport/boxing/articles/cwj3klxj10edo?at_medium=RSS&at_campaign=rss",
+      "mediaType": "image",
+      "mediaUrl": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/1c8a/live/cc272240-e9c2-11f1-8d2a-f5d2aabc11cb.jpg",
+      "mediaCredit": "BBC Sport",
+      "headline": "The Fury Protocol: Mandatory Neuro-Psych Screening for Elite Athletes",
+      "plainEnglish": "Boxing officials are forcing a mental health check on Tyson Fury before his next big fight because of things revealed in a documentary. This marks a new era where what you say on camera can legally stop you from working.",
+      "publicRecord": "Boxing authorities have mandated a mental health assessment for Tyson Fury to determine his fitness for the upcoming Anthony Joshua bout. This decision follows specific revelations regarding his psychological state in a recent documentary film.",
+      "altHypothesis": "This sets a dangerous precedent where 'mental health' is used as a regulatory tool to bench high-value assets when they become too difficult for promoters to manage."
+    },
+    {
+      "id": "auto-c446ef4e2a-3",
+      "date": "NOV 26, 2026",
+      "region": "ASIA-PACIFIC",
+      "location": "CHRISTCHURCH",
+      "subject": "HISTORY & ARCHAEOLOGY",
+      "coincidenceLevel": 94,
+      "breakdown": {
+        "deviation": 45,
+        "timing": 12,
+        "multiSource": 5,
+        "opacity": 32
+      },
+      "evidenceGrade": "Telemetry / Sensor Log",
+      "citationSource": "BBC Cricket NOV 26, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/sport/cricket/articles/crx27984p14jo?at_medium=RSS&at_campaign=rss",
+      "mediaType": "image",
+      "mediaUrl": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/6b9b/live/5d230c90-e9b0-11f1-859a-37130cd3a1d7.jpg",
+      "mediaCredit": "BBC Sport",
+      "headline": "The Christchurch Ghost: Pant’s Unrecorded Infiltration of Club Cricket",
+      "plainEnglish": "A world-famous cricket star played in a local game using a fake name and dominated the match. It’s a bizarre case of a celebrity successfully hiding their identity in plain sight during a digital age.",
+      "publicRecord": "Indian wicketkeeper Rishabh Pant joined a local club cricket match in Christchurch, New Zealand, under a false name. He scored 54 runs off 21 balls before being recognized, just days before the official second Test match against New Zealand.",
+      "altHypothesis": "This wasn't just a 'fun game'; it was a live test of biometric anonymity and the ability of high-profile individuals to bypass modern surveillance and data tracking."
+    },
+    {
+      "id": "auto-d1faea01b5-4",
+      "date": "NOV 26, 2026",
+      "region": "EUROPE",
+      "location": "BERLIN",
+      "subject": "TECHNOLOGY",
+      "coincidenceLevel": 81,
+      "breakdown": {
+        "deviation": 18,
+        "timing": 25,
+        "multiSource": 10,
+        "opacity": 28
+      },
+      "evidenceGrade": "Declassified Gov File",
+      "citationSource": "BBC News NOV 26, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/news/videos/cvglrz5yr79go?at_medium=RSS&at_campaign=rss",
+      "mediaType": "image",
+      "mediaUrl": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/db1b/live/69c522b0-e962-11f1-a094-5fdc692f3e33.jpg",
+      "mediaCredit": "BBC News",
+      "headline": "Small Boat Logistics: Dismantling the Shadow Supply Chain",
+      "plainEnglish": "A German man is accused of being the main supplier of boats for human smuggling gangs across Europe. It reveals how a single person can use modern shipping and manufacturing to fuel a massive illegal network.",
+      "publicRecord": "Marvin Reuter is facing extradition to France on charges of supplying migrant gangs with small boats. He is suspected of being a key logistical link in a criminal conspiracy involving involuntary manslaughter and large-scale smuggling operations.",
+      "altHypothesis": "The ability of a single individual to manage such a massive, specialized inventory suggests the use of encrypted logistics platforms that are currently invisible to standard European border tech."
+    },
+    {
+      "id": "auto-86ea2c50c9-5",
+      "date": "NOV 26, 2026",
+      "region": "GLOBAL / ORBITAL",
+      "location": "LAS VEGAS",
+      "subject": "SPORTS",
+      "coincidenceLevel": 66,
+      "breakdown": {
+        "deviation": 8,
+        "timing": 15,
+        "multiSource": 23,
+        "opacity": 20
+      },
+      "evidenceGrade": "Telemetry / Sensor Log",
+      "citationSource": "BBC Formula 1 NOV 26, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/sport/formula1/articles/c5lykr98yd88o?at_medium=RSS&at_campaign=rss",
+      "mediaType": "image",
+      "mediaUrl": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/8256/live/ae2c5130-e9ad-11f1-859a-37130cd3a1d7.jpg",
+      "mediaCredit": "BBC Sport",
+      "headline": "The Paddock Feud: Psychological Warfare in Formula 1",
+      "plainEnglish": "Top drivers George Russell and Max Verstappen are trading insults after the Las Vegas Grand Prix. While it looks like a simple argument, it shows how much mental stress and data-driven competition is happening behind the scenes.",
+      "publicRecord": "George Russell has dismissed Max Verstappen's recent criticisms as 'quite amusing' following the Las Vegas Grand Prix. The tension between the Mercedes and Red Bull drivers has escalated publicly, with both sides refusing to back down from their respective stances.",
+      "altHypothesis": "This public spat is a distraction from ongoing investigations into 'gray-area' telemetry sharing between teams that could redefine the 2027 technical regulations."
+    },
     {
       "id": "auto-c757014b17-0",
       "date": "NOV 26, 2026",
@@ -414,48 +558,6 @@
       "plainEnglish": "The famous king who supposedly caused the Roman invasion of Britain was actually a woman. This discovery changes everything we thought we knew about who was really in charge back then.",
       "publicRecord": "Archaeological evidence now suggests that Verica, the ruler whose exile triggered Rome's invasion of Britain in AD 43, was female. This challenges centuries of patriarchal historical assumptions about Iron Age leadership.",
       "altHypothesis": "The sudden 'discovery' of female leadership in key historical catalysts is a modern effort to rewrite cultural foundations to fit current social narratives, regardless of the original context."
-    },
-    {
-      "id": "fishy-07",
-      "date": "NOV 25, 2026",
-      "region": "AMERICAS",
-      "location": "REDWOOD CITY",
-      "subject": "AEROSPACE & TECH",
-      "coincidenceLevel": 69,
-      "breakdown": {
-        "deviation": 55,
-        "timing": 85,
-        "multiSource": 90,
-        "opacity": 75
-      },
-      "evidenceGrade": "Regulatory / Market Data",
-      "citationSource": "BBC News NOV 25, 2026",
-      "sourceUrl": "https://www.bbc.co.uk/news/articles/c65y10j841jpo?at_medium=RSS&at_campaign=rss",
-      "headline": "EA Resurrects Deceased Commentator Using AI for Video Game Profit",
-      "plainEnglish": "A famous sports announcer who passed away is being brought back as a computer-generated voice in a new video game. It's a sign that even after death, your voice can still be used to make money for big companies.",
-      "publicRecord": "Electronic Arts has added an AI-generated version of the late John Motson to the FC 27 video game. The project was completed with the consent of his family and will debut on November 26.",
-      "altHypothesis": "This is a pilot program to normalize the use of 'digital ghosts' in entertainment, eventually allowing companies to stop paying living talent altogether by owning the permanent rights to dead icons."
-    },
-    {
-      "id": "fishy-08",
-      "date": "NOV 25, 2026",
-      "region": "AMERICAS",
-      "location": "WASHINGTON DC",
-      "subject": "BUSINESS & FINANCE",
-      "coincidenceLevel": 94,
-      "breakdown": {
-        "deviation": 95,
-        "timing": 90,
-        "multiSource": 85,
-        "opacity": 80
-      },
-      "evidenceGrade": "Regulatory / Market Data",
-      "citationSource": "BBC News NOV 25, 2026",
-      "sourceUrl": "https://www.bbc.co.uk/news/articles/c893r9ke5p97o?at_medium=RSS&at_campaign=rss",
-      "headline": "US Imposes Massive Multi-Front Tariffs on Global Trading Partners",
-      "plainEnglish": "The US government just put a huge tax on goods coming from China, the EU, and other countries. This will make almost everything more expensive for regular people and could start a global trade war.",
-      "publicRecord": "The US has announced new tariffs targeting major trading partners including China and the European Union. These levies are expected to impact a wide range of consumer goods and industrial materials.",
-      "altHypothesis": "These tariffs are being used as a blunt instrument to force a global currency reset, intentionally breaking the current trade system to build a new one where the US has absolute leverage."
     }
   ]
 }
