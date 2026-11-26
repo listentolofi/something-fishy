@@ -298,7 +298,13 @@
   <!-- ==================== FOOTER ==================== -->
   <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-6 border-t border-paper-border dark:border-night-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 dark:text-slate-400">
     <p><strong class="text-gray-700 dark:text-slate-200">SOMETHING FISHY</strong> — Primary receipts paired with unvarnished pattern analysis.</p>
-    <p class="font-mono">PRIMARY SOURCES AUDITED • VERIFIED DISPATCHES</p>
+    <div class="flex flex-wrap items-center gap-3 font-mono">
+      <span id="visitorCounterBadge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border bg-paper-card border-paper-border text-gray-700 dark:bg-night-card dark:border-night-border dark:text-slate-300">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+        <span>VISITS: --</span>
+      </span>
+      <span>PRIMARY SOURCES AUDITED • VERIFIED DISPATCHES</span>
+    </div>
   </footer>
 
   <!-- ==================== MODAL 1: FISHINESS BREAKDOWN ("WHY THIS SCORED SO HIGH") ==================== -->
@@ -746,6 +752,7 @@
       renderCategoryDropdown();
       updateMasterLensUI();
       updatePinnedBadge();
+      trackSiteVisits();
 
       // Load baseline first so UI renders instantaneously
       mergeAndRenderDossiers([]);
@@ -753,6 +760,25 @@
       // Attempt live fetch of daily_feed.json (Morning News Robot output)
       await fetchDailyFeed();
     });
+
+    // Global Site Visitor Counter (Free, zero-signup API with local fallback)
+    async function trackSiteVisits() {
+      const badgeEl = document.getElementById('visitorCounterBadge');
+      if (!badgeEl) return;
+
+      try {
+        const res = await fetch('https://api.counterapi.dev/v1/listentolofi-something-fishy/visits/up');
+        if (!res.ok) throw new Error('Counter API unavailable');
+        const data = await res.json();
+        const count = Number(data.count || 1).toLocaleString();
+        badgeEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span><span>VISITS: ${count}</span>`;
+      } catch (err) {
+        // Fallback if ad-blocker blocks third-party counter requests
+        let localCount = Number(localStorage.getItem('sf_local_visits') || '0') + 1;
+        try { localStorage.setItem('sf_local_visits', String(localCount)); } catch (e) {}
+        badgeEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span><span>VISITS: ${localCount.toLocaleString()}</span>`;
+      }
+    }
 
     function loadSavedLocalData() {
       try {
