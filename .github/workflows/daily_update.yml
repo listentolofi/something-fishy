@@ -1,9 +1,9 @@
-name: Something Fishy Morning News Robot
+name: Something Fishy All-Day News Robot
 
 on:
   schedule:
-    # Runs automatically every day at 6:00 AM Manila Time (22:00 UTC)
-    - cron: '0 22 * * *'
+    # Runs automatically every 4 hours (6:00 AM, 10:00 AM, 2:00 PM, 6:00 PM, 10:00 PM, 2:00 AM Manila Time)
+    - cron: '0 */4 * * *'
   workflow_dispatch:
 
 permissions:
@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run Morning News Robot
+      - name: Run All-Day News Robot
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python update_feed.py
@@ -31,6 +31,6 @@ jobs:
           git config user.name "Something Fishy Bot"
           git config user.email "bot@users.noreply.github.com"
           git add daily_feed.json
-          git diff --staged --quiet || git commit -m "Auto-update daily news briefing"
+          git diff --staged --quiet || git commit -m "Auto-update all-day news briefing"
           git pull --rebase origin main
           git push
