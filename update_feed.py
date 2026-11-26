@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import re
@@ -6,7 +7,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 
-# Free public news RSS feeds across your updated Topics
+# Free public news RSS feeds across your Topics
 RSS_FEEDS = [
     ("POLITICS", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/news/politics/rss.xml"),
     ("POLITICS", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/news/world/rss.xml"),
@@ -25,7 +26,6 @@ GEMINI_MODELS = [
 ]
 
 def extract_media_url(item):
-    # Safely extract publisher-provided RSS thumbnail/enclosure if present
     for elem in item.iter():
         tag = elem.tag.lower()
         if tag.endswith("thumbnail") or tag.endswith("content") or tag.endswith("enclosure"):
@@ -34,6 +34,16 @@ def extract_media_url(item):
             if url and (media_type.startswith("image/") or re.search(r"\.(jpg|jpeg|png|webp)(\?.*)?$", url, re.I)):
                 return url
     return None
+
+def load_existing_items():
+    if not os.path.exists("daily_feed.json"):
+        return []
+    try:
+        with open("daily_feed.json", "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data.get("items", []) if isinstance(data, dict) else []
+    except Exception:
+        return []
 
 def fetch_headlines(limit_per_feed=3):
     collected = []
@@ -70,12 +80,20 @@ def generate_fishy_dossiers(headlines):
     if not api_key:
         raise RuntimeError("Missing GEMINI_API_KEY in GitHub Secrets.")
 
+    existing_items = load_existing_items()
+    existing_urls = {item.get("sourceUrl", "").strip() for item in existing_items if item.get("sourceUrl")}
+
+    # Filter out headlines already published in earlier runs today
+    fresh_headlines = [h for h in headlines if h["link"].strip() not in existing_urls]
+    if not fresh_headlines:
+        fresh_headlines = headlines
+
     prompt = f"""
 You are the senior investigative editor for 'SOMETHING FISHY'.
-Review these real headlines from today ({today_str}) and select the 8 most intriguing, coincidental, or paradigm-challenging stories across Politics, Business & Finance, Sports, Health & Science, History & Archaeology, and Technology.
+Review these real headlines from today ({today_str}) and select the 6 most intriguing, coincidental, or paradigm-challenging stories across Politics, Business & Finance, Sports, Health & Science, History & Archaeology, and Technology.
 
 Return ONLY a valid JSON array (no markdown fences) where each object has:
-- "id": unique string like "auto-1"
+- "id": unique string
 - "date": "{today_str}"
 - "region": one of ["ASIA-PACIFIC", "MIDDLE EAST & AFRICA", "EUROPE", "AMERICAS", "GLOBAL / ORBITAL"]
 - "location": uppercase city/sector string
@@ -94,7 +112,7 @@ Return ONLY a valid JSON array (no markdown fences) where each object has:
 - "altHypothesis": 1-2 punchy sentences spelling out the real motive, who profits, or what clashes with the story (Why It's Fishy? — do NOT start with the literal words "So what?")
 
 HEADLINES:
-{json.dumps(headlines, indent=2)}
+{json.dumps(fresh_headlines, indent=2)}
 """
 
     payload = json.dumps({
@@ -124,16 +142,34 @@ HEADLINES:
         raise last_error or RuntimeError("All Gemini models returned 404.")
 
     raw_text = result["candidates"][0]["content"]["parts"][0]["text"]
-    items = json.loads(raw_text)
+    new_items = json.loads(raw_text)
+
+    # Give each item a deterministic unique ID based on its source URL so merging never collides
+    for idx, item in enumerate(new_items):
+        digest = hashlib.sha1((item.get("sourceUrl", "") + item.get("headline", "")).encode("utf-8")).hexdigest()[:10]
+        item["id"] = f"auto-{digest}-{idx}"
+
+    # Merge new stories on top of existing stories (deduplicated by sourceUrl, capped at 24 newest)
+    merged = []
+    seen_urls = set()
+    for item in new_items + existing_items:
+        src = (item.get("sourceUrl") or item.get("headline") or "").strip()
+        if src and src in seen_urls:
+            continue
+        if src:
+            seen_urls.add(src)
+        merged.append(item)
+
+    merged = merged[:24]
 
     output = {
         "updatedAt": datetime.now(timezone.utc).strftime("%b %d, %Y %H:%M UTC"),
-        "items": items
+        "items": merged
     }
 
     with open("daily_feed.json", "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
-    print(f"Successfully updated daily_feed.json with {len(items)} dossiers.")
+    print(f"Successfully updated daily_feed.json ({len(new_items)} new, {len(merged)} total stored).")
 
 if __name__ == "__main__":
     raw_headlines = fetch_headlines(limit_per_feed=3)
