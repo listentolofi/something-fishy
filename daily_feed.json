@@ -1,6 +1,150 @@
 {
-  "updatedAt": "Nov 26, 2026 20:48 UTC",
+  "updatedAt": "Nov 27, 2026 01:00 UTC",
   "items": [
+    {
+      "id": "auto-a1b5aa6771-0",
+      "date": "NOV 27, 2026",
+      "region": "GLOBAL / ORBITAL",
+      "location": "KYIV",
+      "subject": "POLITICS",
+      "coincidenceLevel": 88,
+      "breakdown": {
+        "deviation": 70,
+        "timing": 90,
+        "multiSource": 85,
+        "opacity": 60
+      },
+      "evidenceGrade": "Declassified Gov File",
+      "citationSource": "BBC News NOV 27, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/news/articles/c820q9wgrpyyo?at_medium=RSS&at_campaign=rss",
+      "mediaType": "image",
+      "mediaUrl": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/20f7/live/d0e75f10-e9e6-11f1-ab41-f1f84c0c758a.jpg",
+      "mediaCredit": "BBC News",
+      "headline": "The Kyiv Cold Shoulder: Zelensky Warns of US Strategic Drift",
+      "plainEnglish": "If the US stops paying attention to Ukraine, it could change how safe the whole world feels. It shows that even big promises can be broken when other problems pop up.",
+      "publicRecord": "President Zelensky has expressed frustration that the US is becoming overly preoccupied with Middle Eastern conflicts at the expense of Ukrainian defense. He also questioned the nature of the relationship between Donald Trump and Vladimir Putin.",
+      "altHypothesis": "The sudden shift in US attention suggests a calculated withdrawal of support to force a negotiated settlement that favors regional stability over Ukrainian territorial integrity."
+    },
+    {
+      "id": "auto-1e06b2936f-1",
+      "date": "NOV 27, 2026",
+      "region": "EUROPE",
+      "location": "LONDON / BRUSSELS",
+      "subject": "BUSINESS & FINANCE",
+      "coincidenceLevel": 74,
+      "breakdown": {
+        "deviation": 65,
+        "timing": 75,
+        "multiSource": 50,
+        "opacity": 95
+      },
+      "evidenceGrade": "Regulatory / Market Data",
+      "citationSource": "BBC News NOV 27, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/news/articles/ck2057x387ego?at_medium=RSS&at_campaign=rss",
+      "mediaType": "image",
+      "mediaUrl": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/e264/live/8e58c180-e9e5-11f1-ab41-f1f84c0c758a.png",
+      "mediaCredit": "BBC News",
+      "headline": "The Sovereignty Surcharge: UK’s New Multi-Billion EU Bill",
+      "plainEnglish": "The UK is quietly paying billions to the EU again just to keep trade moving. This means your taxes are going to a group the country officially left years ago.",
+      "publicRecord": "Legal documents have revealed that the UK will pay a substantial 'participation fee' to the European Union to facilitate trade deals. This contribution is aimed at covering administrative and running costs within the bloc.",
+      "altHypothesis": "This payment represents a desperate attempt to buy back market access without the political fallout of a formal treaty renegotiation."
+    },
+    {
+      "id": "auto-1cb777d921-2",
+      "date": "NOV 27, 2026",
+      "region": "EUROPE",
+      "location": "BOURNEMOUTH",
+      "subject": "SPORTS",
+      "coincidenceLevel": 68,
+      "breakdown": {
+        "deviation": 90,
+        "timing": 40,
+        "multiSource": 30,
+        "opacity": 80
+      },
+      "evidenceGrade": "Telemetry / Sensor Log",
+      "citationSource": "BBC Sport NOV 27, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/sport/football/articles/cmq5v84vw818o?at_medium=RSS&at_campaign=rss",
+      "mediaType": "image",
+      "mediaUrl": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/278c/live/15481e30-e9e0-11f1-9361-cd8ed0157587.jpg",
+      "mediaCredit": "BBC Sport",
+      "headline": "The Bournemouth Anomaly: A Statistical Miracle in Europe",
+      "plainEnglish": "A small soccer team is suddenly winning everything against much bigger opponents. It makes people wonder if they have found a secret way to play that no one else knows yet.",
+      "publicRecord": "Bournemouth has achieved a rare feat by winning their first five European games, leading fans to book hotels for the Europa League final. The team's performance has defied expectations for a club of its size.",
+      "altHypothesis": "The team's perfect streak suggests they are using advanced, secret data algorithms that predict player moves better than any human coach could."
+    },
+    {
+      "id": "auto-dea1456350-3",
+      "date": "NOV 27, 2026",
+      "region": "AMERICAS",
+      "location": "WASHINGTON D.C.",
+      "subject": "HEALTH & SCIENCE",
+      "coincidenceLevel": 82,
+      "breakdown": {
+        "deviation": 80,
+        "timing": 60,
+        "multiSource": 70,
+        "opacity": 85
+      },
+      "evidenceGrade": "Telemetry / Sensor Log",
+      "citationSource": "BBC News NOV 27, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/news/articles/ckm2mz3prq77o?at_medium=RSS&at_campaign=rss",
+      "mediaType": "image",
+      "mediaUrl": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/af5b/live/7a140030-e9f0-11f1-99b6-a35a62fa4264.jpg",
+      "mediaCredit": "BBC News",
+      "headline": "The Thanksgiving Blackout: Grid Fragility in the Age of Extremes",
+      "plainEnglish": "A million people lost power during a holiday because the electric grid couldn't handle a storm that was predicted days in advance. It shows that the systems we rely on every day are much weaker than we are told.",
+      "publicRecord": "A massive storm system has left nearly one million Americans without power during the Thanksgiving holiday. Flooding and high winds have grounded flights and disrupted critical infrastructure across both coasts.",
+      "altHypothesis": "The catastrophic failure of the power grid during a forecasted event suggests that emergency reserves and infrastructure hardening funds have been quietly reallocated elsewhere."
+    },
+    {
+      "id": "auto-f839aa1598-4",
+      "date": "NOV 27, 2026",
+      "region": "ASIA-PACIFIC",
+      "location": "SYDNEY",
+      "subject": "HISTORY & ARCHAEOLOGY",
+      "coincidenceLevel": 91,
+      "breakdown": {
+        "deviation": 50,
+        "timing": 95,
+        "multiSource": 80,
+        "opacity": 90
+      },
+      "evidenceGrade": "Declassified Gov File",
+      "citationSource": "BBC Sport NOV 27, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/sport/cricket/articles/cxdd1335nyj0o?at_medium=RSS&at_campaign=rss",
+      "mediaType": "image",
+      "mediaUrl": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/7a6d/live/390ab730-e9fc-11f1-a094-5fdc692f3e33.jpg",
+      "mediaCredit": "BBC Sport",
+      "headline": "The Sandpaper Files: Reopening the 2017 Ashes Cold Case",
+      "plainEnglish": "Officials are reopening a cheating scandal from nearly ten years ago to see if it was worse than they thought. It matters because it shows that the people running major sports might be hiding secrets for a very long time.",
+      "publicRecord": "Cricket Australia has expanded its investigation into the 2018 ball-tampering scandal to include the 2017-18 Ashes series. This independent probe seeks to determine if the practice was systemic during that period.",
+      "altHypothesis": "Re-litigating a decade-old sports scandal serves as a perfect smokescreen to distract from current financial mismanagement within the league's executive board."
+    },
+    {
+      "id": "auto-b27f5ea88b-5",
+      "date": "NOV 27, 2026",
+      "region": "ASIA-PACIFIC",
+      "location": "TAIPEI / SANTA CLARA",
+      "subject": "TECHNOLOGY",
+      "coincidenceLevel": 95,
+      "breakdown": {
+        "deviation": 95,
+        "timing": 96,
+        "multiSource": 90,
+        "opacity": 85
+      },
+      "evidenceGrade": "Regulatory / Market Data",
+      "citationSource": "BBC News NOV 27, 2026",
+      "sourceUrl": "https://www.bbc.co.uk/news/articles/cqevr4lnd1nxo?at_medium=RSS&at_campaign=rss",
+      "mediaType": "image",
+      "mediaUrl": "https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/2c76/live/9f54a560-e956-11f1-a629-63e812fa871f.jpg",
+      "mediaCredit": "BBC News",
+      "headline": "The Silicon Savior: Jensen Huang’s Emergency Return to Nvidia",
+      "plainEnglish": "A major tech leader suddenly came back to his job because the company's big bet on AI is causing chaos in the stock market. This could affect the price of everything from phones to cars that use these computer chips.",
+      "publicRecord": "Asian markets are experiencing extreme volatility following the unexpected return of Jensen Huang as CEO of Nvidia. The region had heavily invested in Nvidia-based AI infrastructure, which is now facing uncertain market conditions.",
+      "altHypothesis": "Huang’s 'shock return' indicates an internal crisis or a failed succession plan that threatened to devalue the entire Asian semiconductor supply chain."
+    },
     {
       "id": "auto-83dc9966af-0",
       "date": "NOV 26, 2026",
@@ -432,132 +576,6 @@
       "plainEnglish": "A million new satellites are going into space to run AI programs, making the sky a giant computer that no single country can control.",
       "publicRecord": "SpaceX has received approval to launch the 'Starmind' constellation, consisting of one million data satellites. The project is designed to provide high-efficiency AI computing power from orbit to meet global demand.",
       "altHypothesis": "Moving AI processing to orbit allows tech giants to bypass terrestrial energy caps, carbon taxes, and national data privacy laws by operating in international space."
-    },
-    {
-      "id": "fishy-01",
-      "date": "NOV 25, 2026",
-      "region": "GLOBAL / ORBITAL",
-      "location": "L2 LAGRANGE POINT",
-      "subject": "AEROSPACE & TECH",
-      "coincidenceLevel": 92,
-      "breakdown": {
-        "deviation": 85,
-        "timing": 90,
-        "multiSource": 75,
-        "opacity": 95
-      },
-      "evidenceGrade": "Telemetry / Sensor Log",
-      "citationSource": "ScienceDaily NOV 25, 2026",
-      "sourceUrl": "https://www.sciencedaily.com/releases/2026/11/261124055852.htm",
-      "headline": "Dark Matter Telescope Diverted to Track 'Unexpected' Deep Space Object",
-      "plainEnglish": "A telescope built to solve the mysteries of the universe suddenly found a random comet instead. It is strange that a machine designed for distant galaxies is now focusing on an icy rock much closer to home.",
-      "publicRecord": "The ESA’s Euclid space telescope discovered its first unknown comet 1.3 billion kilometers away. The object follows an unusual orbit that takes thousands of years to complete, despite the telescope being optimized for dark matter research.",
-      "altHypothesis": "The 'comet' is a convenient cover story for a sensor anomaly or an unidentifiable object that the telescope wasn't supposed to see while scanning the void."
-    },
-    {
-      "id": "fishy-02",
-      "date": "NOV 25, 2026",
-      "region": "EUROPE",
-      "location": "GENEVA",
-      "subject": "HEALTH & SCIENCE",
-      "coincidenceLevel": 89,
-      "breakdown": {
-        "deviation": 80,
-        "timing": 85,
-        "multiSource": 90,
-        "opacity": 70
-      },
-      "evidenceGrade": "Peer-Reviewed DOI",
-      "citationSource": "ScienceDaily NOV 25, 2026",
-      "sourceUrl": "https://www.sciencedaily.com/releases/2026/11/261124055849.htm",
-      "headline": "Physicists Successfully Trap Antimatter in 'Wall-Free' Zero-Point Zone",
-      "plainEnglish": "Scientists have figured out how to hold onto the rarest substance in the universe without it exploding. This could lead to a whole new way of understanding why anything exists at all.",
-      "publicRecord": "Researchers trapped a positron and cooled it to near absolute zero in a wall-free trap. This allows for the most precise comparison between matter and antimatter ever conducted to find why matter dominates the universe.",
-      "altHypothesis": "Perfecting antimatter containment is less about 'universal origins' and more about securing the most dense energy source known to man for classified propulsion or weaponry."
-    },
-    {
-      "id": "fishy-03",
-      "date": "NOV 25, 2026",
-      "region": "AMERICAS",
-      "location": "NEW YORK",
-      "subject": "AEROSPACE & TECH",
-      "coincidenceLevel": 78,
-      "breakdown": {
-        "deviation": 60,
-        "timing": 70,
-        "multiSource": 95,
-        "opacity": 85
-      },
-      "evidenceGrade": "Regulatory / Market Data",
-      "citationSource": "BBC News NOV 25, 2026",
-      "sourceUrl": "https://www.bbc.co.uk/news/articles/cmy49ngydqzpo?at_medium=RSS&at_campaign=rss",
-      "headline": "Huawei Convicted of Trade Secret Theft While Racketeering Charges Vanish",
-      "plainEnglish": "A major tech company was found guilty of stealing American secrets but got off on the more serious 'organized crime' charges. It looks like a legal middle ground was reached to avoid a total diplomatic meltdown.",
-      "publicRecord": "A New York jury found Huawei guilty of stealing US trade secrets following a months-long trial. However, the company was acquitted of racketeering charges, which carry significantly heavier penalties and legal implications.",
-      "altHypothesis": "The split verdict is a calculated diplomatic pressure valve, allowing the US to punish intellectual property theft without completely severing the critical tech supply chains that racketeering charges would have destroyed."
-    },
-    {
-      "id": "fishy-04",
-      "date": "NOV 25, 2026",
-      "region": "EUROPE",
-      "location": "LONDON",
-      "subject": "BUSINESS & FINANCE",
-      "coincidenceLevel": 84,
-      "breakdown": {
-        "deviation": 75,
-        "timing": 95,
-        "multiSource": 80,
-        "opacity": 65
-      },
-      "evidenceGrade": "Regulatory / Market Data",
-      "citationSource": "BBC News NOV 25, 2026",
-      "sourceUrl": "https://www.bbc.co.uk/news/articles/cm3vgdn037z4o?at_medium=RSS&at_campaign=rss",
-      "headline": "Poundland Collapse Signals Total Hollowing of Low-Income Retail",
-      "plainEnglish": "The UK's most famous discount shop is going out of business, putting 11,000 people out of work. When even the cheapest stores can't survive, it means the economy is in much worse shape than officials are admitting.",
-      "publicRecord": "Poundland has entered administration after its owners failed to find a buyer or secure fresh funding. The collapse puts 11,000 jobs at risk across hundreds of stores in the UK.",
-      "altHypothesis": "The failure of a 'value' giant during an inflationary period suggests a deliberate consolidation of retail power into a few digital-only monopolies that don't have to pay for physical storefronts or local staff."
-    },
-    {
-      "id": "fishy-05",
-      "date": "NOV 25, 2026",
-      "region": "AMERICAS",
-      "location": "BALTIMORE",
-      "subject": "HEALTH & SCIENCE",
-      "coincidenceLevel": 91,
-      "breakdown": {
-        "deviation": 90,
-        "timing": 80,
-        "multiSource": 85,
-        "opacity": 90
-      },
-      "evidenceGrade": "Peer-Reviewed DOI",
-      "citationSource": "ScienceDaily NOV 25, 2026",
-      "sourceUrl": "https://www.sciencedaily.com/releases/2026/11/261124055854.htm",
-      "headline": "Common Anxiety Meds Linked to Accelerated Brain Decay in Seniors",
-      "plainEnglish": "Doctors are warning that pills used for sleep and anxiety are actually making dementia worse for one in three older adults. These drugs might be doing more harm than good for the very people they are supposed to help.",
-      "publicRecord": "A new study reveals that nearly 33% of older adults with cognitive disorders are taking medications that worsen brain function and increase death risk. Researchers warn that progress in reducing these prescriptions has stalled.",
-      "altHypothesis": "Maintaining a heavily medicated and cognitively impaired elderly population ensures a steady, multi-billion dollar revenue stream for pharmaceutical companies while reducing the political agency of the aging voting bloc."
-    },
-    {
-      "id": "fishy-06",
-      "date": "NOV 25, 2026",
-      "region": "EUROPE",
-      "location": "SILCHESTER",
-      "subject": "HISTORY & ARCHAEOLOGY",
-      "coincidenceLevel": 72,
-      "breakdown": {
-        "deviation": 65,
-        "timing": 70,
-        "multiSource": 85,
-        "opacity": 60
-      },
-      "evidenceGrade": "Declassified Gov File",
-      "citationSource": "ScienceDaily NOV 25, 2026",
-      "sourceUrl": "https://www.sciencedaily.com/releases/2026/11/261122060338.htm",
-      "headline": "Historical Identity Crisis: Iron Age King Verica Revealed as a Woman",
-      "plainEnglish": "The famous king who supposedly caused the Roman invasion of Britain was actually a woman. This discovery changes everything we thought we knew about who was really in charge back then.",
-      "publicRecord": "Archaeological evidence now suggests that Verica, the ruler whose exile triggered Rome's invasion of Britain in AD 43, was female. This challenges centuries of patriarchal historical assumptions about Iron Age leadership.",
-      "altHypothesis": "The sudden 'discovery' of female leadership in key historical catalysts is a modern effort to rewrite cultural foundations to fit current social narratives, regardless of the original context."
     }
   ]
 }
