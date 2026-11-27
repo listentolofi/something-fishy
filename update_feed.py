@@ -7,7 +7,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 
-# Free public news RSS feeds across your Topics
+# Each RSS feed enforces its exact topic ("subject") so stories don't drift into the wrong section
 RSS_FEEDS = [
     ("POLITICS", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/news/politics/rss.xml"),
     ("POLITICS", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/news/world/rss.xml"),
@@ -18,12 +18,24 @@ RSS_FEEDS = [
     ("TECHNOLOGY", "GLOBAL / ORBITAL", "https://feeds.bbci.co.uk/news/technology/rss.xml"),
 ]
 
+VALID_SUBJECTS = {
+    "POLITICS",
+    "BUSINESS & FINANCE",
+    "SPORTS",
+    "HEALTH & SCIENCE",
+    "HISTORY & ARCHAEOLOGY",
+    "TECHNOLOGY",
+    "EARTH & ENVIRONMENT",
+    "WORLD & ARCHIVES",
+}
+
 GEMINI_MODELS = [
     "gemini-3-flash-preview",
     "gemini-2.5-flash-latest",
     "gemini-flash-latest",
     "gemini-2.5-pro",
 ]
+
 
 def extract_media_url(item):
     for elem in item.iter():
@@ -35,6 +47,7 @@ def extract_media_url(item):
                 return url
     return None
 
+
 def load_existing_items():
     if not os.path.exists("daily_feed.json"):
         return []
@@ -44,6 +57,7 @@ def load_existing_items():
         return data.get("items", []) if isinstance(data, dict) else []
     except Exception:
         return []
+
 
 def fetch_headlines(limit_per_feed=3):
     collected = []
@@ -67,11 +81,12 @@ def fetch_headlines(limit_per_feed=3):
                         "title": title,
                         "link": link,
                         "mediaUrl": media_url,
-                        "summary": desc[:300]
+                        "summary": desc[:300],
                     })
         except Exception as e:
             print(f"Skipped {url}: {e}")
     return collected
+
 
 def generate_fishy_dossiers(headlines):
     api_key = os.environ.get("GEMINI_API_KEY", "").strip()
@@ -83,21 +98,24 @@ def generate_fishy_dossiers(headlines):
     existing_items = load_existing_items()
     existing_urls = {item.get("sourceUrl", "").strip() for item in existing_items if item.get("sourceUrl")}
 
-    # Filter out headlines already published in earlier runs today
     fresh_headlines = [h for h in headlines if h["link"].strip() not in existing_urls]
     if not fresh_headlines:
         fresh_headlines = headlines
 
+    # Map source URL -> locked topic from the RSS feed so every topic stays accurate
+    url_to_category = {h["link"].strip(): h["category"] for h in headlines if h.get("link")}
+
     prompt = f"""
 You are the senior investigative editor for 'SOMETHING FISHY'.
-Review these real headlines from today ({today_str}) and select the 6 most intriguing, coincidental, or paradigm-challenging stories across Politics, Business & Finance, Sports, Health & Science, History & Archaeology, and Technology.
+Review these real headlines from today ({today_str}) and select the 6 most intriguing, coincidental, or paradigm-challenging stories across all topics.
+CRITICAL RULE: Each item's "subject" MUST match the "category" assigned to its headline in the input list. Do not recategorize a story into a different topic.
 
 Return ONLY a valid JSON array (no markdown fences) where each object has:
 - "id": unique string
 - "date": "{today_str}"
 - "region": one of ["ASIA-PACIFIC", "MIDDLE EAST & AFRICA", "EUROPE", "AMERICAS", "GLOBAL / ORBITAL"]
 - "location": uppercase city/sector string
-- "subject": one of ["POLITICS", "BUSINESS & FINANCE", "SPORTS", "HEALTH & SCIENCE", "HISTORY & ARCHAEOLOGY", "TECHNOLOGY", "EARTH & ENVIRONMENT", "WORLD & ARCHIVES"]
+- "subject": exact "category" from the matched headline
 - "coincidenceLevel": integer between 65 and 96
 - "breakdown": {{"deviation": int, "timing": int, "multiSource": int, "opacity": int}}
 - "evidenceGrade": one of ["Regulatory / Market Data", "Peer-Reviewed DOI", "Declassified Gov File", "Telemetry / Sensor Log"]
@@ -117,7 +135,7 @@ HEADLINES:
 
     payload = json.dumps({
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"temperature": 0.4, "responseMimeType": "application/json"}
+        "generationConfig": {"temperature": 0.4, "responseMimeType": "application/json"},
     }).encode("utf-8")
 
     result = None
@@ -144,12 +162,17 @@ HEADLINES:
     raw_text = result["candidates"][0]["content"]["parts"][0]["text"]
     new_items = json.loads(raw_text)
 
-    # Give each item a deterministic unique ID based on its source URL so merging never collides
     for idx, item in enumerate(new_items):
-        digest = hashlib.sha1((item.get("sourceUrl", "") + item.get("headline", "")).encode("utf-8")).hexdigest()[:10]
+        src_url = (item.get("sourceUrl") or "").strip()
+        locked_subject = url_to_category.get(src_url)
+        if locked_subject:
+            item["subject"] = locked_subject
+        elif item.get("subject") not in VALID_SUBJECTS:
+            item["subject"] = "WORLD & ARCHIVES"
+
+        digest = hashlib.sha1((src_url + item.get("headline", "")).encode("utf-8")).hexdigest()[:10]
         item["id"] = f"auto-{digest}-{idx}"
 
-    # Merge new stories on top of existing stories (deduplicated by sourceUrl, capped at 24 newest)
     merged = []
     seen_urls = set()
     for item in new_items + existing_items:
@@ -164,12 +187,13 @@ HEADLINES:
 
     output = {
         "updatedAt": datetime.now(timezone.utc).strftime("%b %d, %Y %H:%M UTC"),
-        "items": merged
+        "items": merged,
     }
 
     with open("daily_feed.json", "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
     print(f"Successfully updated daily_feed.json ({len(new_items)} new, {len(merged)} total stored).")
+
 
 if __name__ == "__main__":
     raw_headlines = fetch_headlines(limit_per_feed=3)
